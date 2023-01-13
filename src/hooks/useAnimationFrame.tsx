@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react'
 
-const useAnimationFrame = (stepFunction: (a: number) => void) => {
+const useAnimationFrame = (stepFunction: (dt: number) => void) => {
+    const lastTimeRef = useRef<number>()
     const animationRef: { current: any } = useRef()
 
     const animate = (time: number) => {
-        stepFunction(time)
+        if (lastTimeRef.current !== undefined)
+            stepFunction(time - lastTimeRef.current)
+        lastTimeRef.current = time
         animationRef.current = requestAnimationFrame(animate)
     }
 
