@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import Box from './Box'
 import useAnimationFrame from './hooks/useAnimationFrame'
@@ -21,6 +21,10 @@ type BoxData = {
 const dragCoefficient = 0.1
 
 type PlayerProps = {
+    acceleration: {
+        x: number
+        y: number
+    }
     position: {
         x: number
         y: number
@@ -48,25 +52,33 @@ const Player = ({
 }
 
 const Boxes = () => {
-    // player position and velocity
-    const [position, setPosition] = useState({ x: 0, y: 0 })
-    const [velocity, setVelocity] = useState({ x: 10, y: 0 })
+    // player acceleration
+    const playerKeysForce = 100
+    const [acceleration, setAcceleration] = useState({ x: 0, y: 0 })
 
     const playerSize = { width: 20, height: 30 }
-    const playerSpeed = 100
+
+    // collisions helper
+    const collisionsRef: { current: number[][] } = useRef([])
 
     useKeyAction(
         [
             [
                 'ArrowUp',
-                () => setVelocity(v => ({ ...v, y: -1 * playerSpeed })),
+                () => setAcceleration(a => ({ ...a, y: -1 * playerKeysForce })),
             ],
-            ['ArrowDown', () => setVelocity(v => ({ ...v, y: playerSpeed }))],
+            [
+                'ArrowDown',
+                () => setAcceleration(a => ({ ...a, y: playerKeysForce })),
+            ],
             [
                 'ArrowLeft',
-                () => setVelocity(v => ({ ...v, x: -1 * playerSpeed })),
+                () => setAcceleration(a => ({ ...a, x: -1 * playerKeysForce })),
             ],
-            ['ArrowRight', () => setVelocity(v => ({ ...v, x: playerSpeed }))],
+            [
+                'ArrowRight',
+                () => setAcceleration(a => ({ ...a, x: playerKeysForce })),
+            ],
         ],
         'keydown'
     )
@@ -75,41 +87,33 @@ const Boxes = () => {
         [
             [
                 'ArrowUp',
-                () =>
-                    setVelocity(v => ({
-                        ...v,
-                        y: v.y === -1 * playerSpeed ? 0 : v.y,
-                    })),
+                () => setAcceleration(a => ({ ...a, y: a.y < 0 ? 0 : a.y })),
             ],
             [
                 'ArrowDown',
-                () =>
-                    setVelocity(v => ({
-                        ...v,
-                        y: v.y === playerSpeed ? 0 : v.y,
-                    })),
+                () => setAcceleration(a => ({ ...a, y: a.y > 0 ? 0 : a.y })),
             ],
             [
                 'ArrowLeft',
-                () =>
-                    setVelocity(v => ({
-                        ...v,
-                        x: v.x === -1 * playerSpeed ? 0 : v.x,
-                    })),
+                () => setAcceleration(a => ({ ...a, x: a.x < 0 ? 0 : a.x })),
             ],
             [
                 'ArrowRight',
-                () =>
-                    setVelocity(v => ({
-                        ...v,
-                        x: v.x === playerSpeed ? 0 : v.x,
-                    })),
+                () => setAcceleration(a => ({ ...a, x: a.x > 0 ? 0 : a.x })),
             ],
         ],
         'keyup'
     )
 
+    // player is first box
     const [boxes, setBoxes] = useState<BoxData[]>([
+        {
+            content: 'P',
+            height: playerSize.height,
+            velocity: { x: 0, y: 0 },
+            position: { x: 0, y: 0 },
+            width: playerSize.width,
+        },
         {
             content: 'Box 1',
             height: 50,
@@ -153,19 +157,32 @@ const Boxes = () => {
 
     useAnimationFrame(
         dt => {
-            setPosition(({ x: oldX, y: oldY }) => {
-                let newPos = {
-                    x: oldX + velocity.x * dt * 0.001,
-                    y: oldY + velocity.y * dt * 0.001,
-                }
-
-                // collisions with boxes
-                return newPos
-            })
-
             setBoxes(boxes => {
                 let newBoxes = [...boxes]
                 newBoxes.forEach((box, index) => {
+                    // set player velocity
+                    if (index === 0)
+                        box.velocity = {
+                            x:
+                                box.velocity.x +
+                                (Math.abs(box.velocity.x) < 100
+                                    ? acceleration.x * dt * 0.001
+                                    : 0) -
+                                box.velocity.x * dragCoefficient * dt * 0.001,
+                            y:
+                                box.velocity.y +
+                                (Math.abs(box.velocity.y) < 100
+                                    ? acceleration.y * dt * 0.001
+                                    : 0) -
+                                box.velocity.y * dragCoefficient * dt * 0.001,
+                        }
+
+                    // apply drag to non player boxes
+                    if (index > 0) {
+                        box.velocity.x *= 1 - dragCoefficient * dt * 0.001
+                        box.velocity.y *= 1 - dragCoefficient * dt * 0.001
+                    }
+
                     // update position based on veolicty
                     box.position.x += box.velocity.x * dt * 0.001
                     box.position.y += box.velocity.y * dt * 0.001
@@ -203,28 +220,72 @@ const Boxes = () => {
                                 otherBox.position.y + otherBox.height &&
                             box.position.y + box.height > otherBox.position.y
                         ) {
-                            // swap velocities
-                            let temp = box.velocity
-                            box.velocity = otherBox.velocity
-                            otherBox.velocity = temp
+                            // swap velocities of collision direction
+                            if (!collisionsRef.current?.[index]?.includes(i)) {
+                                let temp = box.velocity
+                                box.velocity = otherBox.velocity
+                                otherBox.velocity = temp
+                                collisionsRef.current[index] = [
+                                    ...(collisionsRef.current?.[index] ?? []),
+                                    i,
+                                ]
+                            } else {
+                                if (i === 0) {
+                                    // if a collision is happening with player, cap the player's velocity to the collision object's velocity, and set player acceleration to 0
+                                    if (
+                                        (otherBox.velocity.x < 0 &&
+                                            box.velocity.x >
+                                                otherBox.velocity.x) ||
+                                        (otherBox.velocity.x > 0 &&
+                                            box.velocity.x <
+                                                otherBox.velocity.x)
+                                    ) {
+                                        otherBox.velocity.x = -box.velocity.x
+                                        setAcceleration(a => ({ ...a, x: 0 }))
+                                    }
+                                    if (
+                                        (otherBox.velocity.y < 0 &&
+                                            box.velocity.y >
+                                                otherBox.velocity.y) ||
+                                        (otherBox.velocity.y > 0 &&
+                                            box.velocity.y <
+                                                otherBox.velocity.y)
+                                    ) {
+                                        otherBox.velocity.y = -box.velocity.y
+                                        setAcceleration(a => ({ ...a, y: 0 }))
+                                    }
+                                }
+                            }
+                        } else {
+                            collisionsRef.current[index] =
+                                collisionsRef.current[index]?.filter(
+                                    c => c !== i
+                                ) ?? []
                         }
                     }
-
-                    // drag
-                    // box.velocity.x *= 1 - dragCoefficient * dt * 0.001
-                    // box.velocity.y *= 1 - dragCoefficient * dt * 0.001
                 })
                 return newBoxes
             })
         },
-        velocity.x,
-        velocity.y
+        acceleration.x,
+        acceleration.y
     )
 
     return (
         <div className="relative">
-            <Player {...{ position, size: playerSize, velocity }} />
-            {boxes.map(box => (
+            <div className="text-white">
+                {boxes[0].velocity.x.toFixed(2)}{' '}
+                {boxes[0].velocity.y.toFixed(2)}
+            </div>
+            <Player
+                {...{
+                    acceleration,
+                    position: boxes[0].position,
+                    size: playerSize,
+                    velocity: boxes[0].velocity,
+                }}
+            />
+            {boxes.slice(1).map(box => (
                 <Box key={box.content} {...box}>
                     {box.content}
                 </Box>
