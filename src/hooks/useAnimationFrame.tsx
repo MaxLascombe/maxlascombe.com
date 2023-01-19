@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-const useAnimationFrame = (
+export const useAnimationFrame = (
     stepFunction: (dt: number) => void,
     ...args: any[]
 ) => {
@@ -21,5 +21,3 @@ const useAnimationFrame = (
 
     return animationRef
 }
-
-export default useAnimationFrame

@@ -36,7 +36,7 @@ type KeyAction = [
     (e: KeyboardEvent) => void
 ]
 
-const useKeyAction = (
+export const useKeyAction = (
     keyActions: KeyAction[],
     event: 'keydown' | 'keyup' = 'keydown'
 ) => {
@@ -53,5 +53,3 @@ const useKeyAction = (
         }
     }, [keyActions, event, callback])
 }
-
-export default useKeyAction
