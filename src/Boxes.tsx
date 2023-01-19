@@ -116,7 +116,7 @@ const Boxes = () => {
         },
         {
             content: 'Box 1',
-            height: 50,
+            height: 300,
             velocity: {
                 x: 50,
                 y: 30,
@@ -161,7 +161,7 @@ const Boxes = () => {
                 let newBoxes = [...boxes]
                 newBoxes.forEach((box, index) => {
                     // set player velocity
-                    if (index === 0)
+                    if (index === 0) {
                         box.velocity = {
                             x:
                                 box.velocity.x +
@@ -176,6 +176,60 @@ const Boxes = () => {
                                     : 0) -
                                 box.velocity.y * dragCoefficient * dt * 0.001,
                         }
+
+                        // if a collision is happening with player, cap the player's velocity to the collision object's velocity, and set player acceleration to 0
+                        for (const i of collisionsRef.current?.[0] ?? []) {
+                            const otherBox = newBoxes[i]
+
+                            // if otherBox is right of player
+                            if (
+                                box.position.x + box.width / 2 <
+                                otherBox.position.x + otherBox.width / 2
+                            ) {
+                                box.velocity.x = Math.min(
+                                    box.velocity.x,
+                                    otherBox.velocity.x
+                                )
+                                setAcceleration(a => ({
+                                    ...a,
+                                    x: Math.min(a.x, 0),
+                                }))
+                            } else {
+                                box.velocity.x = Math.max(
+                                    box.velocity.x,
+                                    otherBox.velocity.x
+                                )
+                                setAcceleration(a => ({
+                                    ...a,
+                                    x: Math.max(a.x, 0),
+                                }))
+                            }
+
+                            // if otherBox is below player
+                            if (
+                                box.position.y + box.height / 2 <
+                                otherBox.position.y + otherBox.height / 2
+                            ) {
+                                box.velocity.y = Math.min(
+                                    box.velocity.y,
+                                    otherBox.velocity.y
+                                )
+                                setAcceleration(a => ({
+                                    ...a,
+                                    y: Math.min(a.y, 0),
+                                }))
+                            } else {
+                                box.velocity.y = Math.max(
+                                    box.velocity.y,
+                                    otherBox.velocity.y
+                                )
+                                setAcceleration(a => ({
+                                    ...a,
+                                    y: Math.max(a.y, 0),
+                                }))
+                            }
+                        }
+                    }
 
                     // apply drag to non player boxes
                     if (index > 0) {
@@ -229,37 +283,19 @@ const Boxes = () => {
                                     ...(collisionsRef.current?.[index] ?? []),
                                     i,
                                 ]
-                            } else {
-                                if (i === 0) {
-                                    // if a collision is happening with player, cap the player's velocity to the collision object's velocity, and set player acceleration to 0
-                                    if (
-                                        (otherBox.velocity.x < 0 &&
-                                            box.velocity.x >
-                                                otherBox.velocity.x) ||
-                                        (otherBox.velocity.x > 0 &&
-                                            box.velocity.x <
-                                                otherBox.velocity.x)
-                                    ) {
-                                        otherBox.velocity.x = -box.velocity.x
-                                        setAcceleration(a => ({ ...a, x: 0 }))
-                                    }
-                                    if (
-                                        (otherBox.velocity.y < 0 &&
-                                            box.velocity.y >
-                                                otherBox.velocity.y) ||
-                                        (otherBox.velocity.y > 0 &&
-                                            box.velocity.y <
-                                                otherBox.velocity.y)
-                                    ) {
-                                        otherBox.velocity.y = -box.velocity.y
-                                        setAcceleration(a => ({ ...a, y: 0 }))
-                                    }
-                                }
+                                collisionsRef.current[i] = [
+                                    ...(collisionsRef.current?.[i] ?? []),
+                                    index,
+                                ]
                             }
                         } else {
                             collisionsRef.current[index] =
                                 collisionsRef.current[index]?.filter(
                                     c => c !== i
+                                ) ?? []
+                            collisionsRef.current[i] =
+                                collisionsRef.current[i]?.filter(
+                                    c => c !== index
                                 ) ?? []
                         }
                     }
