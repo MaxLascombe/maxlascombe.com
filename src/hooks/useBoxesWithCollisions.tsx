@@ -7,6 +7,7 @@ type BoxData = {
     className?: string
     content: string | JSX.Element
     height: number
+    link?: string
     position: {
         x: number
         y: number
@@ -181,6 +182,7 @@ export const useBoxesWithCollisions = (initialBoxes: BoxData[]) => {
                         box.velocity.y *= -1
                     }
 
+                    let newCollisions = []
                     // collisions with other boxes
                     for (let i = 0; i < index; i++) {
                         let otherBox = newBoxes[i]
@@ -195,6 +197,7 @@ export const useBoxesWithCollisions = (initialBoxes: BoxData[]) => {
                         ) {
                             // swap velocities of collision direction
                             if (!collisionsRef.current?.[index]?.includes(i)) {
+                                newCollisions.push(i)
                                 let temp = box.velocity
                                 box.velocity = otherBox.velocity
                                 otherBox.velocity = temp

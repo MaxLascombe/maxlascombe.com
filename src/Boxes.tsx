@@ -4,38 +4,58 @@ import { useBoxesWithCollisions } from './hooks/useBoxesWithCollisions'
 
 const Boxes = () => {
     const playerSize = { width: 20, height: 30 }
+
+    const socialLinks = {
+        fb: 'https://www.facebook.com/maxlascombe',
+        tw: 'https://twitter.com/MaxLascombe',
+        ig: 'https://www.instagram.com/maxlascombe/',
+        li: 'https://www.linkedin.com/in/maxlascombe/',
+        gh: 'https://github.com/MaxLascombe',
+        yt: 'https://www.youtube.com/MaxLascombe',
+    }
+
     const { boxes, acceleration } = useBoxesWithCollisions([
         {
             key: 'player',
             content: 'P',
             height: playerSize.height,
             velocity: { x: 0, y: 0 },
-            position: { x: 0, y: 0 },
+            position: { x: 500, y: 50 },
             width: playerSize.width,
         },
         {
             key: 'title',
-            className: 'flex flex-col items-center justify-center',
-            content: <h1 className="text-xl uppercase">Max Lascombe</h1>,
-            height: 100,
+            content: <h1 className="lowercase">Max Lascombe dot com</h1>,
+            height: 70,
             velocity: {
-                x: 50,
-                y: 30,
+                x: 0,
+                y: 0,
             },
             position: {
-                x: 100,
-                y: 0,
+                x: 50,
+                y: 50,
             },
             width: 300,
         },
+        ...Object.entries(socialLinks).map(([key, link], index) => ({
+            key,
+            content: key,
+            height: 30,
+            link,
+            velocity: {
+                x: 0,
+                y: 0,
+            },
+            position: {
+                x: 50 + index * 50,
+                y: 150,
+            },
+            width: 30,
+        })),
     ])
 
     return (
         <div className="relative">
-            <div className="text-white">
-                {boxes[0].velocity.x.toFixed(2)}{' '}
-                {boxes[0].velocity.y.toFixed(2)}
-            </div>
             <Player
                 {...{
                     acceleration,
