@@ -80,8 +80,9 @@ export const useBoxesWithCollisions = (initialBoxes: BoxData[]) => {
             setBoxes(boxes => {
                 let newBoxes = [...boxes]
                 newBoxes.forEach((box, index) => {
-                    // set player velocity
-                    if (index === 0) {
+                    // update velocities
+                    const isPlayer = index === 0
+                    if (isPlayer) {
                         box.velocity = {
                             x:
                                 box.velocity.x +
@@ -96,65 +97,66 @@ export const useBoxesWithCollisions = (initialBoxes: BoxData[]) => {
                                     : 0) -
                                 box.velocity.y * dragCoefficient * dt * 0.001,
                         }
+                    } else {
+                        box.velocity.x *= 1 - dragCoefficient * dt * 0.001
+                        box.velocity.y *= 1 - dragCoefficient * dt * 0.001
+                    }
 
-                        // if a collision is happening with player, cap the player's velocity to the collision object's velocity, and set player acceleration to 0
-                        for (const i of collisionsRef.current?.[0] ?? []) {
-                            const otherBox = newBoxes[i]
+                    // if a collision is happening with box, cap the box's velocity to the collision object's velocity, and set box acceleration to 0
+                    for (const i of collisionsRef.current?.[index] ?? []) {
+                        const otherBox = newBoxes[i]
 
-                            // if otherBox is right of player
-                            if (
-                                box.position.x + box.width / 2 <
-                                otherBox.position.x + otherBox.width / 2
-                            ) {
-                                box.velocity.x = Math.min(
-                                    box.velocity.x,
-                                    otherBox.velocity.x
-                                )
+                        // if otherBox is right of box
+                        if (
+                            box.position.x + box.width / 2 <
+                            otherBox.position.x + otherBox.width / 2
+                        ) {
+                            box.velocity.x = Math.min(
+                                box.velocity.x,
+                                otherBox.velocity.x
+                            )
+                            if (isPlayer)
                                 setAcceleration(a => ({
                                     ...a,
                                     x: Math.min(a.x, 0),
                                 }))
-                            } else {
-                                box.velocity.x = Math.max(
-                                    box.velocity.x,
-                                    otherBox.velocity.x
-                                )
+                        } else {
+                            box.velocity.x = Math.max(
+                                box.velocity.x,
+                                otherBox.velocity.x
+                            )
+                            if (isPlayer)
                                 setAcceleration(a => ({
                                     ...a,
                                     x: Math.max(a.x, 0),
                                 }))
-                            }
+                        }
 
-                            // if otherBox is below player
-                            if (
-                                box.position.y + box.height / 2 <
-                                otherBox.position.y + otherBox.height / 2
-                            ) {
-                                box.velocity.y = Math.min(
-                                    box.velocity.y,
-                                    otherBox.velocity.y
-                                )
+                        // if otherBox is below box
+                        if (
+                            box.position.y + box.height / 2 <
+                            otherBox.position.y + otherBox.height / 2
+                        ) {
+                            box.velocity.y = Math.min(
+                                box.velocity.y,
+                                otherBox.velocity.y
+                            )
+                            if (isPlayer)
                                 setAcceleration(a => ({
                                     ...a,
                                     y: Math.min(a.y, 0),
                                 }))
-                            } else {
-                                box.velocity.y = Math.max(
-                                    box.velocity.y,
-                                    otherBox.velocity.y
-                                )
+                        } else {
+                            box.velocity.y = Math.max(
+                                box.velocity.y,
+                                otherBox.velocity.y
+                            )
+                            if (isPlayer)
                                 setAcceleration(a => ({
                                     ...a,
                                     y: Math.max(a.y, 0),
                                 }))
-                            }
                         }
-                    }
-
-                    // apply drag to non player boxes
-                    if (index > 0) {
-                        box.velocity.x *= 1 - dragCoefficient * dt * 0.001
-                        box.velocity.y *= 1 - dragCoefficient * dt * 0.001
                     }
 
                     // update position based on veolicty
