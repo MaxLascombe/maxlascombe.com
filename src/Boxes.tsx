@@ -3,7 +3,7 @@ import Player from './Player'
 import { useBoxesWithCollisions } from './hooks/useBoxesWithCollisions'
 
 const Boxes = () => {
-    const playerSize = { width: 20, height: 30 }
+    const playerSize = { width: 30, height: 30 }
 
     const socialLinks = {
         fb: 'https://www.facebook.com/maxlascombe',
