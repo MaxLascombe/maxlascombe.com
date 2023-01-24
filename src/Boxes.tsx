@@ -56,6 +56,46 @@ const Boxes = () => {
             },
             width: 30,
         })),
+        // {
+        //     key: 'about',
+        //     content: (
+        //         <div className="text-left px-2">
+        //             <h2 className="uppercase">About</h2>
+        //             <p>
+        //                 I'm a software engineer / creative person based in NYC.
+        //                 I'm currently working at YouGov as Head of Development
+        //                 for YouGov Finance after my co-founders and I sold our
+        //                 startup Lean to YouGov. I have a newsletter where I
+        //                 discuss my goals and how I'm working on achieving them.
+        //             </p>
+        //         </div>
+        //     ),
+        //     height: 200,
+        //     velocity: {
+        //         x: 0,
+        //         y: 0,
+        //     },
+        //     position: {
+        //         x: window.innerWidth / 2 - 200,
+        //         y: 250,
+        //     },
+        //     width: 400,
+        // },
+        {
+            key: 'newsletter',
+            content: 'lifetothemax newsletter',
+            height: 40,
+            link: 'https://lifetothemax.substack.com/',
+            velocity: {
+                x: 0,
+                y: 0,
+            },
+            position: {
+                x: window.innerWidth / 2 - 100,
+                y: 500,
+            },
+            width: 200,
+        },
     ])
 
     return (
