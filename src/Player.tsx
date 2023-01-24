@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import { useAnimationFrame } from './hooks/useAnimationFrame'
 
+import SpeechBubble from './SpeechBubble'
+
 let walkingSprites: string[] = []
 
 for (let i = 1; i <= 4; i++) {
@@ -28,8 +30,8 @@ type PlayerProps = {
 
 const Player = ({
     acceleration: { x: aX },
-    position: { x: left, y: top },
-    size: { height, width },
+    position: { x, y },
+    size: { height: initialHeight, width: initialWidth },
     velocity: { x: vX },
 }: PlayerProps) => {
     const [sprite, setSprite] = useState(0)
@@ -59,13 +61,18 @@ const Player = ({
 
     const walkingRight = aX > 0 ? true : aX < 0 ? false : vX > 0
 
+    const height = initialHeight * 2
+    const left = x - initialWidth / 2
+    const width = initialWidth * 2
+    const top = y - initialHeight / 2
+
     return (
         <div
             style={{
-                height: 2 * height,
-                left: left - width / 2,
-                top: top - height / 2,
-                width: width * 2,
+                height,
+                left,
+                width,
+                top,
             }}
             className="absolute">
             <img
@@ -76,6 +83,12 @@ const Player = ({
                     (walkingRight ? '' : 'transform -scale-x-100')
                 }
             />
+            <SpeechBubble
+                ownerPosition={{ x: left, y: top }}
+                ownerSize={{ height, width }}
+                size={{ height: 100, width: 100 }}>
+                Hello!
+            </SpeechBubble>
         </div>
     )
 }
