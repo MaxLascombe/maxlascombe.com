@@ -36,9 +36,9 @@ const Box = ({
         )
     return (
         <div
-            style={{ height: height + 2, left, top, width }}
+            style={{ height: height + 6, left, top, width }}
             className={
-                'flex flex-col items-center justify-center absolute border-2 border-b-4 border-white rounded-lg p-2 text-sm text-white inline-block text-center ' +
+                'flex flex-col items-center justify-center absolute bg-black border-2 border-b-8 border-white rounded-xl p-2 text-sm text-white inline-block text-center ' +
                 className
             }>
             {children}

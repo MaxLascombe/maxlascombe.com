@@ -26,16 +26,16 @@ const Boxes = () => {
         {
             key: 'title',
             content: <h1 className="lowercase">Max Lascombe dot com</h1>,
-            height: 70,
+            height: 50,
             velocity: {
                 x: 0,
                 y: 0,
             },
             position: {
-                x: 50,
+                x: window.innerWidth / 2 - 100,
                 y: 50,
             },
-            width: 300,
+            width: 200,
         },
         ...Object.entries(socialLinks).map(([key, link], index) => ({
             key,
@@ -47,7 +47,11 @@ const Boxes = () => {
                 y: 0,
             },
             position: {
-                x: 50 + index * 50,
+                x:
+                    window.innerWidth / 2 -
+                    (Object.keys(socialLinks).length * 30) / 2 -
+                    ((Object.keys(socialLinks).length - 1) * 20) / 2 +
+                    index * 50,
                 y: 150,
             },
             width: 30,

@@ -1,7 +1,9 @@
+@import 'assets/fonts/cal-sans/style.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'CalSans', 'Inter', sans-serif;
 }
