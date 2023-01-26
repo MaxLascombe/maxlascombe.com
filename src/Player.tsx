@@ -67,29 +67,31 @@ const Player = ({
     const top = y - initialHeight / 2
 
     return (
-        <div
-            style={{
-                height,
-                left,
-                width,
-                top,
-            }}
-            className="absolute">
-            <img
-                src={walkingSprites[sprite]}
-                alt="player"
-                className={
-                    'h-full w-full ' +
-                    (walkingRight ? '' : 'transform -scale-x-100')
-                }
-            />
+        <>
+            <div
+                style={{
+                    height,
+                    left,
+                    width,
+                    top,
+                }}
+                className="absolute">
+                <img
+                    src={walkingSprites[sprite]}
+                    alt="player"
+                    className={
+                        'h-full w-full ' +
+                        (walkingRight ? '' : 'transform -scale-x-100')
+                    }
+                />
+            </div>
             <SpeechBubble
                 ownerPosition={{ x: left, y: top }}
                 ownerSize={{ height, width }}
                 size={{ height: 100, width: 100 }}>
                 Hello!
             </SpeechBubble>
-        </div>
+        </>
     )
 }
 
