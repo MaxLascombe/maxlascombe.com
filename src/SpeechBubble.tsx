@@ -1,3 +1,6 @@
+import { useRef, useState } from 'react'
+import { useAnimationFrame } from './hooks/useAnimationFrame'
+
 const BUBBLE_MARGIN = 20
 
 const SpeechBubble = ({
@@ -42,6 +45,42 @@ const SpeechBubble = ({
                 ownerSize={{ height: oHeight, width: oWidth }}
                 position={{ x: left, y: top }}
             />
+            <KeyOption keySymbol="N">Next</KeyOption>
+        </div>
+    )
+}
+
+const KeyOption = ({
+    children,
+    keySymbol,
+}: {
+    children: React.ReactNode
+    keySymbol: string
+}) => {
+    const [pressed, setPressed] = useState(false)
+    const dtRef = useRef(0)
+
+    useAnimationFrame(dt => {
+        dtRef.current += dt
+
+        if (dtRef.current < 500) return
+
+        dtRef.current = 0
+        setPressed(p => !p)
+    }, [])
+
+    return (
+        <div className="absolute bottom-0 right-0 p-2">
+            <div className="flex items-center">
+                <div
+                    className={
+                        'border-2 rounded-lg h-6 w-6 flex items-center justify-center ' +
+                        (pressed ? 'mt-1' : 'border-b-2')
+                    }>
+                    <span className="text-xs font-bold">{keySymbol}</span>
+                </div>
+                <div className="ml-1 text-sm">{children}</div>
+            </div>
         </div>
     )
 }
