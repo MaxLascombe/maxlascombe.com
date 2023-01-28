@@ -1,14 +1,22 @@
-import { useRef, useState } from 'react'
-import { useAnimationFrame } from './hooks/useAnimationFrame'
+import { useState } from 'react'
+import { useAnimationTimeout } from './hooks/useAnimationFrame'
+import { useKeyAction } from './hooks/useKeyAction'
 
 const BUBBLE_MARGIN = 20
 
 const SpeechBubble = ({
     children,
+    leftKey,
     ownerPosition: { x, y },
     ownerSize: { height: oHeight, width: oWidth },
+    rightKey: { onPress: rightOnPress, text: rightText, key: rightKey },
     size: { height, width },
 }: SpeechBubbleProps) => {
+    useKeyAction([
+        { key: rightKey, function: rightOnPress },
+        ...(leftKey ? [{ key: leftKey.key, function: leftKey.onPress }] : []),
+    ])
+
     const bubbleOrientation: 'top' | 'left' | 'right' =
         y > height + BUBBLE_MARGIN
             ? 'top'
@@ -35,9 +43,9 @@ const SpeechBubble = ({
 
     return (
         <div
-            className="absolute text-white border-2 rounded-xl z-10 bg-black bg-opacity-90 p-2 text-center"
+            className="absolute text-white border rounded-xl z-10 bg-black bg-opacity-80 p-2 text-center"
             style={{ height, left, top, width }}>
-            {children}
+            <p className="w-full whitespace-normal">{children}</p>
             <SpeechArrow
                 bubbleSize={{ height, width }}
                 orientation={bubbleOrientation}
@@ -45,7 +53,12 @@ const SpeechBubble = ({
                 ownerSize={{ height: oHeight, width: oWidth }}
                 position={{ x: left, y: top }}
             />
-            <KeyOption keySymbol="N">Next</KeyOption>
+            {leftKey && (
+                <KeyOption keySymbol={leftKey.key} right={false}>
+                    {leftKey.text}
+                </KeyOption>
+            )}
+            <KeyOption keySymbol={rightKey}>{rightText}</KeyOption>
         </div>
     )
 }
@@ -53,33 +66,32 @@ const SpeechBubble = ({
 const KeyOption = ({
     children,
     keySymbol,
+    right = true,
 }: {
     children: React.ReactNode
     keySymbol: string
+    right?: boolean
 }) => {
-    const [pressed, setPressed] = useState(false)
-    const dtRef = useRef(0)
+    const [pressed, setPressed] = useState(right)
 
-    useAnimationFrame(dt => {
-        dtRef.current += dt
-
-        if (dtRef.current < 500) return
-
-        dtRef.current = 0
-        setPressed(p => !p)
-    }, [])
+    useAnimationTimeout(() => setPressed(p => !p), 500)
 
     return (
-        <div className="absolute bottom-0 right-0 p-2">
-            <div className="flex items-center">
+        <div
+            className={
+                'absolute bottom-0 p-2 ' + (right ? 'right-0' : 'left-0')
+            }>
+            <div className="flex items-center h-6">
                 <div
                     className={
-                        'border-2 rounded-lg h-6 w-6 flex items-center justify-center ' +
-                        (pressed ? 'mt-1' : 'border-b-2')
+                        'uppercase text-xs border-2 rounded-lg w-6 flex items-center justify-center ' +
+                        (pressed
+                            ? 'h-5.5 relative top-[2px]'
+                            : 'h-6 border-b-4')
                     }>
-                    <span className="text-xs font-bold">{keySymbol}</span>
+                    {keySymbol}
                 </div>
-                <div className="ml-1 text-sm">{children}</div>
+                <div className="ml-1 text-xs">{children}</div>
             </div>
         </div>
     )
@@ -108,7 +120,7 @@ const SpeechArrow = ({
             : 'rotate-90'
     const top =
         orientation === 'top'
-            ? height - 4
+            ? height - 2
             : Math.max(
                   6,
                   Math.min(
@@ -126,7 +138,7 @@ const SpeechArrow = ({
                   )
               )
             : orientation === 'left'
-            ? width - 8
+            ? width - 6
             : -16
     return (
         <div
@@ -140,8 +152,15 @@ const SpeechArrow = ({
 
 export default SpeechBubble
 
+type KeyPress = {
+    onPress: () => void
+    text: string
+    key: 'n' | 'x'
+}
+
 type SpeechBubbleProps = {
     children: string
+    leftKey?: KeyPress
     ownerPosition: {
         x: number
         y: number
@@ -150,6 +169,7 @@ type SpeechBubbleProps = {
         width: number
         height: number
     }
+    rightKey: KeyPress
     size: {
         width: number
         height: number

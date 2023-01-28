@@ -21,3 +21,21 @@ export const useAnimationFrame = (
 
     return animationRef
 }
+
+export const useAnimationTimeout = (
+    toDo: () => void,
+    timeout: number,
+    ...args: any[]
+) => {
+    const dtRef = useRef(0)
+
+    useAnimationFrame(
+        dt => {
+            dtRef.current += dt
+            if (dtRef.current < timeout) return
+            dtRef.current = 0
+            toDo()
+        },
+        [timeout, ...args]
+    )
+}

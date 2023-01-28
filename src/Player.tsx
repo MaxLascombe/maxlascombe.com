@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { useAnimationFrame } from './hooks/useAnimationFrame'
+import { useAnimationTimeout } from './hooks/useAnimationFrame'
 
 import SpeechBubble from './SpeechBubble'
 
@@ -35,28 +35,14 @@ const Player = ({
     velocity: { x: vX },
 }: PlayerProps) => {
     const [sprite, setSprite] = useState(0)
-    const dtRef = useRef(0)
-
-    // y = ax + b
-    // 150 = a*100 + b
-    // 1000 = a*0 + b
-    // b = 1000
-    // a*100 = 150 - 1000 = -850
-    // a = -8.5
+    const [speechBubbleIndex, setSpeechBubbleIndex] = useState(0)
 
     const walkingSpeed =
         Math.abs(vX) < 0.5 ? Infinity : Math.abs(vX) * -8.5 + 1000
 
-    useAnimationFrame(
-        dt => {
-            dtRef.current += dt
-
-            if (dtRef.current < walkingSpeed) return
-
-            dtRef.current = 0
-            setSprite(sprite => (sprite + 1) % walkingSprites.length)
-        },
-        [walkingSpeed]
+    useAnimationTimeout(
+        () => setSprite(sprite => (sprite + 1) % walkingSprites.length),
+        walkingSpeed
     )
 
     const walkingRight = aX > 0 ? true : aX < 0 ? false : vX > 0
@@ -85,14 +71,62 @@ const Player = ({
                     }
                 />
             </div>
-            <SpeechBubble
-                ownerPosition={{ x: left, y: top }}
-                ownerSize={{ height, width }}
-                size={{ height: 100, width: 100 }}>
-                Hello!
-            </SpeechBubble>
+            {speechBubbleIndex < SPEECH_BUBBLES.length && (
+                <SpeechBubble
+                    leftKey={{
+                        key: 'x',
+                        onPress: () =>
+                            setSpeechBubbleIndex(SPEECH_BUBBLES.length),
+                        text: 'Skip',
+                    }}
+                    ownerPosition={{ x: left, y: top }}
+                    ownerSize={{ height, width }}
+                    rightKey={{
+                        key: 'n',
+                        onPress: () => setSpeechBubbleIndex(s => s + 1),
+                        text: 'Next',
+                    }}
+                    size={SPEECH_BUBBLES[speechBubbleIndex].size}>
+                    {SPEECH_BUBBLES[speechBubbleIndex].text}
+                </SpeechBubble>
+            )}
         </>
     )
 }
+
+const SPEECH_BUBBLES = [
+    {
+        text: "Hey, I'm Max. Welcome to my website!",
+        size: { height: 120, width: 140 },
+    },
+    {
+        text: "I made this website to show off the things I'm working on, and to have all my links in one place.",
+        size: { height: 120, width: 250 },
+    },
+    {
+        text: 'All the boxes on this page (except this speech bubble) are clickable.',
+        size: { height: 120, width: 200 },
+    },
+    {
+        text: 'Oh, also! You can move me around with the arrow keys.',
+        size: { height: 120, width: 180 },
+    },
+    {
+        text: "Why? Because it's fun!",
+        size: { height: 100, width: 140 },
+    },
+    {
+        text: 'And if you collide with any of the boxes, you might mess up my website.',
+        size: { height: 120, width: 200 },
+    },
+    {
+        text: 'So, please, be careful.',
+        size: { height: 100, width: 140 },
+    },
+    {
+        text: 'Anyway, hope you enjoy your stay!',
+        size: { height: 120, width: 140 },
+    },
+]
 
 export default Player

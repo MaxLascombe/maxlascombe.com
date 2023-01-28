@@ -2,7 +2,7 @@ import Boxes from './Boxes'
 
 const App = () => {
     return (
-        <div className="h-screen bg-black truncate">
+        <div className="truncate">
             <Boxes />
         </div>
     )

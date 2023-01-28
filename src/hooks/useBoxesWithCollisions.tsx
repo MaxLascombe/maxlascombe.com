@@ -7,7 +7,7 @@ type BoxData = {
     className?: string
     content: string | JSX.Element
     height: number
-    link?: string
+    link: string
     position: {
         x: number
         y: number
@@ -31,44 +31,52 @@ export const useBoxesWithCollisions = (initialBoxes: BoxData[]) => {
 
     useKeyAction(
         [
-            [
-                'ArrowUp',
-                () => setAcceleration(a => ({ ...a, y: -1 * playerKeysForce })),
-            ],
-            [
-                'ArrowDown',
-                () => setAcceleration(a => ({ ...a, y: playerKeysForce })),
-            ],
-            [
-                'ArrowLeft',
-                () => setAcceleration(a => ({ ...a, x: -1 * playerKeysForce })),
-            ],
-            [
-                'ArrowRight',
-                () => setAcceleration(a => ({ ...a, x: playerKeysForce })),
-            ],
+            {
+                key: 'ArrowUp',
+                function: () =>
+                    setAcceleration(a => ({ ...a, y: -1 * playerKeysForce })),
+            },
+            {
+                key: 'ArrowDown',
+                function: () =>
+                    setAcceleration(a => ({ ...a, y: playerKeysForce })),
+            },
+            {
+                key: 'ArrowLeft',
+                function: () =>
+                    setAcceleration(a => ({ ...a, x: -1 * playerKeysForce })),
+            },
+            {
+                key: 'ArrowRight',
+                function: () =>
+                    setAcceleration(a => ({ ...a, x: playerKeysForce })),
+            },
         ],
         'keydown'
     )
 
     useKeyAction(
         [
-            [
-                'ArrowUp',
-                () => setAcceleration(a => ({ ...a, y: a.y < 0 ? 0 : a.y })),
-            ],
-            [
-                'ArrowDown',
-                () => setAcceleration(a => ({ ...a, y: a.y > 0 ? 0 : a.y })),
-            ],
-            [
-                'ArrowLeft',
-                () => setAcceleration(a => ({ ...a, x: a.x < 0 ? 0 : a.x })),
-            ],
-            [
-                'ArrowRight',
-                () => setAcceleration(a => ({ ...a, x: a.x > 0 ? 0 : a.x })),
-            ],
+            {
+                key: 'ArrowUp',
+                function: () =>
+                    setAcceleration(a => ({ ...a, y: a.y < 0 ? 0 : a.y })),
+            },
+            {
+                key: 'ArrowDown',
+                function: () =>
+                    setAcceleration(a => ({ ...a, y: a.y > 0 ? 0 : a.y })),
+            },
+            {
+                key: 'ArrowLeft',
+                function: () =>
+                    setAcceleration(a => ({ ...a, x: a.x < 0 ? 0 : a.x })),
+            },
+            {
+                key: 'ArrowRight',
+                function: () =>
+                    setAcceleration(a => ({ ...a, x: a.x > 0 ? 0 : a.x })),
+            },
         ],
         'keyup'
     )

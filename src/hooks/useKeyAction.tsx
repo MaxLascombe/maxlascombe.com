@@ -1,40 +1,9 @@
 import { useCallback, useEffect } from 'react'
 
-type KeyAction = [
-    (
-        | 'ArrowUp'
-        | 'ArrowDown'
-        | 'ArrowLeft'
-        | 'ArrowRight'
-        | 'a'
-        | 'b'
-        | 'c'
-        | 'd'
-        | 'e'
-        | 'f'
-        | 'g'
-        | 'h'
-        | 'i'
-        | 'j'
-        | 'k'
-        | 'l'
-        | 'm'
-        | 'n'
-        | 'o'
-        | 'p'
-        | 'q'
-        | 'r'
-        | 's'
-        | 't'
-        | 'u'
-        | 'v'
-        | 'w'
-        | 'x'
-        | 'y'
-        | 'z'
-    ),
-    (e: KeyboardEvent) => void
-]
+type KeyAction = {
+    key: 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight' | 'n' | 'x'
+    function: (e: KeyboardEvent) => void
+}
 
 export const useKeyAction = (
     keyActions: KeyAction[],
@@ -42,7 +11,7 @@ export const useKeyAction = (
 ) => {
     const callback = useCallback(
         (e: KeyboardEvent) => {
-            for (const kA of keyActions) if (kA[0] === e.key) kA[1](e)
+            for (const kA of keyActions) if (kA.key === e.key) kA.function(e)
         },
         [keyActions]
     )

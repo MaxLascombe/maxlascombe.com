@@ -18,6 +18,7 @@ const Boxes = () => {
         {
             key: 'player',
             content: 'P',
+            link: '',
             height: playerSize.height,
             velocity: { x: 0, y: 0 },
             position: { x: 500, y: 50 },
@@ -26,6 +27,7 @@ const Boxes = () => {
         {
             key: 'title',
             content: <h1 className="lowercase">Max Lascombe dot com</h1>,
+            link: '/',
             height: 50,
             velocity: {
                 x: 0,
@@ -52,38 +54,13 @@ const Boxes = () => {
                     (Object.keys(socialLinks).length * 30) / 2 -
                     ((Object.keys(socialLinks).length - 1) * 20) / 2 +
                     index * 50,
-                y: 150,
+                y: 130,
             },
             width: 30,
         })),
-        // {
-        //     key: 'about',
-        //     content: (
-        //         <div className="text-left px-2">
-        //             <h2 className="uppercase">About</h2>
-        //             <p>
-        //                 I'm a software engineer / creative person based in NYC.
-        //                 I'm currently working at YouGov as Head of Development
-        //                 for YouGov Finance after my co-founders and I sold our
-        //                 startup Lean to YouGov. I have a newsletter where I
-        //                 discuss my goals and how I'm working on achieving them.
-        //             </p>
-        //         </div>
-        //     ),
-        //     height: 200,
-        //     velocity: {
-        //         x: 0,
-        //         y: 0,
-        //     },
-        //     position: {
-        //         x: window.innerWidth / 2 - 200,
-        //         y: 250,
-        //     },
-        //     width: 400,
-        // },
         {
             key: 'newsletter',
-            content: 'lifetothemax newsletter',
+            content: 'my newsletter',
             height: 40,
             link: 'https://lifetothemax.substack.com/',
             velocity: {
@@ -91,15 +68,15 @@ const Boxes = () => {
                 y: 0,
             },
             position: {
-                x: window.innerWidth / 2 - 100,
-                y: 500,
+                x: window.innerWidth / 2 - 75,
+                y: 190,
             },
-            width: 200,
+            width: 150,
         },
     ])
 
     return (
-        <div className="relative">
+        <div className="h-screen bg-black relative">
             <Player
                 {...{
                     acceleration,
