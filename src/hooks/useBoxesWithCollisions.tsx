@@ -28,9 +28,52 @@ export const useBoxesWithCollisions = (initialBoxes: BoxData[]) => {
 
     // collisions helper
     const collisionsRef: { current: number[][] } = useRef([])
+    //
+    // player is first box
+    const [boxes, setBoxes] = useState(initialBoxes)
 
     useKeyAction(
         [
+            {
+                key: 'p',
+                function: () => {
+                    const position = boxes[0].position
+
+                    const facingRight =
+                        acceleration.x > 0
+                            ? true
+                            : acceleration.x < 0
+                            ? false
+                            : boxes[0].velocity.x > 0
+
+                    // find closest box
+                    let closestBox = null
+                    let closestDistance = Infinity
+                    for (let i = 1; i < boxes.length; i++) {
+                        // box and player are at colliding y positions
+                        if (
+                            !(
+                                boxes[i].position.y + boxes[i].height >
+                                    position.y &&
+                                boxes[i].position.y <
+                                    position.y + boxes[0].height
+                            )
+                        )
+                            continue
+
+                        let distance = facingRight
+                            ? boxes[i].position.x - position.x - boxes[0].width
+                            : position.x - boxes[i].position.x - boxes[i].width
+                        if (distance < closestDistance && distance > 0) {
+                            closestBox = boxes[i]
+                            closestDistance = distance
+                        }
+                    }
+
+                    if (closestBox && closestDistance < 30)
+                        window.location.href = closestBox.link
+                },
+            },
             {
                 key: 'ArrowUp',
                 function: () =>
@@ -80,8 +123,6 @@ export const useBoxesWithCollisions = (initialBoxes: BoxData[]) => {
         ],
         'keyup'
     )
-    // player is first box
-    const [boxes, setBoxes] = useState(initialBoxes)
 
     useAnimationFrame(
         dt => {

@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react'
 
 type KeyAction = {
-    key: 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight' | 'n' | 'x'
+    key: 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight' | 'n' | 'p' | 'x'
     function: (e: KeyboardEvent) => void
 }
 
