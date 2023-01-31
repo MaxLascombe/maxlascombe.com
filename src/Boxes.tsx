@@ -1,4 +1,5 @@
 import Box from './Box'
+import Controls from './Controls'
 import Player from './Player'
 import { useBoxesWithCollisions } from './hooks/useBoxesWithCollisions'
 
@@ -90,6 +91,16 @@ const Boxes = () => {
             {boxes.slice(1).map(box => (
                 <Box {...box}>{box.content}</Box>
             ))}
+            <Controls
+                leftPress={() => console.log('left')}
+                leftRelease={() => console.log('unleft')}
+                upPress={() => console.log('up')}
+                upRelease={() => console.log('unup')}
+                rightPress={() => console.log('right')}
+                rightRelease={() => console.log('unright')}
+                downPress={() => console.log('down')}
+                downRelease={() => console.log('undown')}
+            />
         </div>
     )
 }

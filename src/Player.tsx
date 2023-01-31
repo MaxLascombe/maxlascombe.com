@@ -94,38 +94,41 @@ const Player = ({
     )
 }
 
+const THREE_LINE_HEIGHT = 120
+const TWO_LINE_HEIGHT = 95
+
 const SPEECH_BUBBLES = [
     {
         text: "Hey, I'm Max. Welcome to my website!",
-        size: { height: 120, width: 140 },
+        size: { height: THREE_LINE_HEIGHT, width: 140 },
     },
     {
         text: "I made this website to show off the things I'm working on, and to have all my links in one place.",
-        size: { height: 120, width: 250 },
+        size: { height: THREE_LINE_HEIGHT, width: 250 },
     },
     {
-        text: 'All the boxes on this page (except this speech bubble) are clickable.',
-        size: { height: 120, width: 200 },
+        text: 'All the boxes on this page are clickable.',
+        size: { height: THREE_LINE_HEIGHT, width: 140 },
     },
     {
         text: 'Oh, also! You can move me around with the arrow keys.',
-        size: { height: 120, width: 180 },
+        size: { height: THREE_LINE_HEIGHT, width: 180 },
     },
     {
         text: "Why? Because it's fun!",
-        size: { height: 100, width: 140 },
+        size: { height: TWO_LINE_HEIGHT, width: 140 },
     },
     {
         text: 'And if you collide with any of the boxes, you might mess up my website.',
-        size: { height: 120, width: 200 },
+        size: { height: THREE_LINE_HEIGHT, width: 200 },
     },
     {
         text: 'So, please, be careful.',
-        size: { height: 100, width: 140 },
+        size: { height: TWO_LINE_HEIGHT, width: 140 },
     },
     {
         text: 'Anyway, hope you enjoy your stay!',
-        size: { height: 120, width: 140 },
+        size: { height: THREE_LINE_HEIGHT, width: 140 },
     },
 ]
 
