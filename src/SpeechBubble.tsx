@@ -54,11 +54,16 @@ const SpeechBubble = ({
                 position={{ x: left, y: top }}
             />
             {leftKey && (
-                <KeyOption keySymbol={leftKey.key} right={false}>
+                <KeyOption
+                    onClick={leftKey.onPress}
+                    keySymbol={leftKey.key}
+                    right={false}>
                     {leftKey.text}
                 </KeyOption>
             )}
-            <KeyOption keySymbol={rightKey}>{rightText}</KeyOption>
+            <KeyOption onClick={rightOnPress} keySymbol={rightKey}>
+                {rightText}
+            </KeyOption>
         </div>
     )
 }
@@ -66,10 +71,12 @@ const SpeechBubble = ({
 const KeyOption = ({
     children,
     keySymbol,
+    onClick,
     right = true,
 }: {
     children: React.ReactNode
     keySymbol: string
+    onClick: () => void
     right?: boolean
 }) => {
     const [pressed, setPressed] = useState(right)
@@ -78,8 +85,10 @@ const KeyOption = ({
 
     return (
         <div
+            onClick={onClick}
             className={
-                'absolute bottom-0 p-2 ' + (right ? 'right-0' : 'left-0')
+                'absolute bottom-0 p-2 cursor-pointer ' +
+                (right ? 'right-0' : 'left-0')
             }>
             <div className="flex items-center h-6">
                 <div
