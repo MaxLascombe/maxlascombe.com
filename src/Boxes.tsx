@@ -14,6 +14,8 @@ const Boxes = () => {
         yt: 'https://www.youtube.com/MaxLascombe',
     }
 
+    const smallScreen = window.innerWidth < 600
+
     const { boxes, acceleration } = useBoxesWithCollisions([
         {
             key: 'player',
@@ -21,7 +23,7 @@ const Boxes = () => {
             link: '',
             height: playerSize.height,
             velocity: { x: 0, y: 0 },
-            position: { x: 500, y: 50 },
+            position: { x: 50, y: 50 },
             width: playerSize.width,
         },
         {
@@ -35,7 +37,7 @@ const Boxes = () => {
             },
             position: {
                 x: window.innerWidth / 2 - 100,
-                y: 50,
+                y: 50 + (smallScreen ? 100 : 0),
             },
             width: 200,
         },
@@ -54,7 +56,7 @@ const Boxes = () => {
                     (Object.keys(socialLinks).length * 30) / 2 -
                     ((Object.keys(socialLinks).length - 1) * 20) / 2 +
                     index * 50,
-                y: 130,
+                y: 130 + (smallScreen ? 100 : 0),
             },
             width: 30,
         })),
@@ -69,7 +71,7 @@ const Boxes = () => {
             },
             position: {
                 x: window.innerWidth / 2 - 75,
-                y: 190,
+                y: 190 + (smallScreen ? 100 : 0),
             },
             width: 150,
         },
