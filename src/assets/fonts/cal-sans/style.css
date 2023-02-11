@@ -1,8 +1,8 @@
 @font-face {
-    font-family: 'CalSans';
-    src: url('fonts/webfonts/CalSans-SemiBold.ttf') format('ttf'),
-        url('fonts/webfonts/CalSans-SemiBold.woff') format('woff'),
-        url('fonts/webfonts/CalSans-SemiBold.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'CalSans';
+  src: url('fonts/webfonts/CalSans-SemiBold.ttf') format('ttf'),
+    url('fonts/webfonts/CalSans-SemiBold.woff') format('woff'),
+    url('fonts/webfonts/CalSans-SemiBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
