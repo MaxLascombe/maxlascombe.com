@@ -21,10 +21,22 @@ type BoxData = {
 
 const dragCoefficient = 0.1
 
-export const useBoxesWithCollisions = (initialBoxes: BoxData[]) => {
+export const useBoxesWithCollisions = (
+  initialBoxes: BoxData[],
+  controls: { left: boolean; up: boolean; right: boolean; down: boolean }
+) => {
   // player acceleration
   const playerKeysForce = 100
   const [acceleration, setAcceleration] = useState({ x: 0, y: 0 })
+
+  if (controls.left && acceleration.x >= 0)
+    setAcceleration(a => ({ ...a, x: -1 * playerKeysForce }))
+  if (controls.right && acceleration.x <= 0)
+    setAcceleration(a => ({ ...a, x: playerKeysForce }))
+  if (controls.up && acceleration.y >= 0)
+    setAcceleration(a => ({ ...a, y: -1 * playerKeysForce }))
+  if (controls.down && acceleration.y <= 0)
+    setAcceleration(a => ({ ...a, y: playerKeysForce }))
 
   // collisions helper
   const collisionsRef: { current: number[][] } = useRef([])

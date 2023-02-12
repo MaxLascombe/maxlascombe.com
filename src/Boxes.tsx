@@ -25,66 +25,69 @@ const Boxes = () => {
     down: false,
   })
 
-  const { boxes, acceleration } = useBoxesWithCollisions([
-    {
-      key: 'player',
-      content: 'P',
-      link: '',
-      height: playerSize.height,
-      velocity: { x: 0, y: 0 },
-      position: { x: 50, y: 50 },
-      width: playerSize.width,
-    },
-    {
-      key: 'title',
-      content: <h1 className='lowercase'>Max Lascombe dot com</h1>,
-      link: '/',
-      height: 50,
-      velocity: {
-        x: 0,
-        y: 0,
+  const { boxes, acceleration } = useBoxesWithCollisions(
+    [
+      {
+        key: 'player',
+        content: 'P',
+        link: '',
+        height: playerSize.height,
+        velocity: { x: 0, y: 0 },
+        position: { x: 50, y: 50 },
+        width: playerSize.width,
       },
-      position: {
-        x: window.innerWidth / 2 - 100,
-        y: 50 + (smallScreen ? 100 : 0),
+      {
+        key: 'title',
+        content: <h1 className='lowercase'>Max Lascombe dot com</h1>,
+        link: '/',
+        height: 50,
+        velocity: {
+          x: 0,
+          y: 0,
+        },
+        position: {
+          x: window.innerWidth / 2 - 100,
+          y: 50 + (smallScreen ? 100 : 0),
+        },
+        width: 200,
       },
-      width: 200,
-    },
-    ...Object.entries(socialLinks).map(([key, link], index) => ({
-      key,
-      content: key,
-      height: 30,
-      link,
-      velocity: {
-        x: 0,
-        y: 0,
+      ...Object.entries(socialLinks).map(([key, link], index) => ({
+        key,
+        content: key,
+        height: 30,
+        link,
+        velocity: {
+          x: 0,
+          y: 0,
+        },
+        position: {
+          x:
+            window.innerWidth / 2 -
+            (Object.keys(socialLinks).length * 30) / 2 -
+            ((Object.keys(socialLinks).length - 1) * 20) / 2 +
+            index * 50,
+          y: 130 + (smallScreen ? 100 : 0),
+        },
+        width: 30,
+      })),
+      {
+        key: 'newsletter',
+        content: 'my newsletter',
+        height: 40,
+        link: 'https://lifetothemax.substack.com/',
+        velocity: {
+          x: 0,
+          y: 0,
+        },
+        position: {
+          x: window.innerWidth / 2 - 75,
+          y: 190 + (smallScreen ? 100 : 0),
+        },
+        width: 150,
       },
-      position: {
-        x:
-          window.innerWidth / 2 -
-          (Object.keys(socialLinks).length * 30) / 2 -
-          ((Object.keys(socialLinks).length - 1) * 20) / 2 +
-          index * 50,
-        y: 130 + (smallScreen ? 100 : 0),
-      },
-      width: 30,
-    })),
-    {
-      key: 'newsletter',
-      content: 'my newsletter',
-      height: 40,
-      link: 'https://lifetothemax.substack.com/',
-      velocity: {
-        x: 0,
-        y: 0,
-      },
-      position: {
-        x: window.innerWidth / 2 - 75,
-        y: 190 + (smallScreen ? 100 : 0),
-      },
-      width: 150,
-    },
-  ])
+    ],
+    controls
+  )
 
   return (
     <div className='relative h-screen bg-black'>
