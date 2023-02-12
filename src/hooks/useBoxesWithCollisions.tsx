@@ -37,6 +37,10 @@ export const useBoxesWithCollisions = (
     setAcceleration(a => ({ ...a, y: -1 * playerKeysForce }))
   if (controls.down && acceleration.y <= 0)
     setAcceleration(a => ({ ...a, y: playerKeysForce }))
+  if (!controls.left && !controls.right && acceleration.x !== 0)
+    setAcceleration(a => ({ ...a, x: 0 }))
+  if (!controls.up && !controls.down && acceleration.y !== 0)
+    setAcceleration(a => ({ ...a, y: 0 }))
 
   // collisions helper
   const collisionsRef: { current: number[][] } = useRef([])
