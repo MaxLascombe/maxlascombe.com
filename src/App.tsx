@@ -1,16 +1,19 @@
-import { Route } from 'wouter'
+import { Redirect, Route, Switch } from 'wouter'
 import Boxes from './Boxes'
 import Progress from './Progress'
 
 const App = () => {
   return (
     <div className='select-none truncate'>
-      <Route path='/'>
-        <Boxes />
-      </Route>
-      <Route path='/progress'>
-        <Progress />
-      </Route>
+      <Switch>
+        <Route path='/'>
+          <Boxes />
+        </Route>
+        <Route path='/progress'>
+          <Progress />
+        </Route>
+        <Redirect to='/' />
+      </Switch>
     </div>
   )
 }
