@@ -7,6 +7,8 @@ type BoxProps = {
   link?: string
   onMouseDown?: () => void
   onMouseUp?: () => void
+  onTouchStart?: () => void
+  onTouchEnd?: () => void
   position: {
     x: number
     y: number
@@ -21,6 +23,8 @@ const Box = ({
   link,
   onMouseDown,
   onMouseUp,
+  onTouchStart,
+  onTouchEnd,
   position: { x: left, y: top },
   width,
 }: BoxProps) => {
@@ -29,7 +33,7 @@ const Box = ({
       <a
         href={link}
         className='text-black no-underline'
-        {...{ onMouseDown, onMouseUp }}>
+        {...{ onMouseDown, onMouseUp, onTouchStart, onTouchEnd }}>
         <Box
           {...{
             children,
@@ -48,7 +52,7 @@ const Box = ({
         'absolute inline-block flex flex-col items-center justify-center rounded-xl border-2 border-b-8 border-white bg-black p-2 text-center text-sm text-white active:mt-0.5 active:border-b-2 ' +
         className
       }
-      {...{ onMouseDown, onMouseUp }}>
+      {...{ onMouseDown, onMouseUp, onTouchStart, onTouchEnd }}>
       {children}
     </div>
   )
