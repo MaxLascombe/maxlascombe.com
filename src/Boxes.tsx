@@ -4,6 +4,7 @@ import Controls from './Controls'
 import Player from './Player'
 import { useBoxesWithCollisions } from './hooks/useBoxesWithCollisions'
 import { useKeyAction } from './hooks/useKeyAction'
+import { useYearProgress } from './hooks/useYearProgress'
 
 const Boxes = () => {
   const playerSize = { width: 30, height: 30 }
@@ -66,7 +67,7 @@ const Boxes = () => {
   )
 
   const screenHeight = window.innerHeight
-  const contentHeight = 180
+  const contentHeight = 210
   const topBoxY = Math.max(50, (screenHeight - contentHeight) / 2)
 
   const { boxes, acceleration } = useBoxesWithCollisions(
@@ -110,7 +111,7 @@ const Boxes = () => {
             (Object.keys(socialLinks).length * 30) / 2 -
             ((Object.keys(socialLinks).length - 1) * 20) / 2 +
             index * 50,
-          y: smallScreen ? Math.max(230, topBoxY + 80) : topBoxY + 80,
+          y: smallScreen ? Math.max(220, topBoxY + 70) : topBoxY + 70,
         },
         width: 30,
       })),
@@ -125,9 +126,26 @@ const Boxes = () => {
         },
         position: {
           x: window.innerWidth / 2 - 75,
-          y: smallScreen ? Math.max(290, topBoxY + 140) : topBoxY + 140,
+          y: smallScreen ? Math.max(270, topBoxY + 120) : topBoxY + 120,
         },
         width: 150,
+      },
+      {
+        key: 'year-progress',
+        className: 'p-0 truncate',
+        content: <ProgressBar />,
+        height: 20,
+        link: '/progress',
+        linkType: 'link',
+        velocity: {
+          x: 0,
+          y: 0,
+        },
+        position: {
+          x: window.innerWidth / 2 - 150,
+          y: smallScreen ? Math.max(340, topBoxY + 190) : topBoxY + 190,
+        },
+        width: 300,
       },
     ],
     controls
@@ -160,6 +178,21 @@ const Boxes = () => {
         downPress={() => setControls(c => ({ ...c, y: 1 }))}
         downRelease={() => setControls(c => ({ ...c, y: c.y === 1 ? 0 : c.y }))}
       />
+    </div>
+  )
+}
+
+const ProgressBar = () => {
+  const yearProgress = useYearProgress()
+  const percentage = `${Math.floor(yearProgress * 100)}%`
+  return (
+    <div className='flex h-full w-full flex-row items-center text-xs text-white'>
+      <div
+        className='h-full bg-white bg-opacity-50'
+        style={{ width: percentage }}>
+        {yearProgress > 0.5 && percentage}
+      </div>
+      {yearProgress <= 0.5 && <div className='ml-1'>{percentage}</div>}
     </div>
   )
 }

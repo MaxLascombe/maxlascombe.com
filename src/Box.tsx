@@ -1,10 +1,12 @@
 import { ReactNode } from 'react'
+import { Link } from 'wouter'
 
 type BoxProps = {
   children: ReactNode
   className?: string
   height: number
   link?: string
+  linkType?: 'a' | 'link'
   onMouseDown?: () => void
   onMouseUp?: () => void
   onTouchStart?: () => void
@@ -21,6 +23,7 @@ const Box = ({
   className,
   height,
   link,
+  linkType = 'a',
   onMouseDown,
   onMouseUp,
   onTouchStart,
@@ -28,7 +31,23 @@ const Box = ({
   position: { x: left, y: top },
   width,
 }: BoxProps) => {
-  if (link)
+  if (link) {
+    if (linkType === 'link')
+      return (
+        <Link href={link}>
+          <a>
+            <Box
+              {...{
+                children,
+                className,
+                height,
+                position: { x: left, y: top },
+                width,
+              }}
+            />
+          </a>
+        </Link>
+      )
     return (
       <a
         href={link}
@@ -46,6 +65,7 @@ const Box = ({
         />
       </a>
     )
+  }
   return (
     <div
       style={{ height: height + 6, left, top, width }}

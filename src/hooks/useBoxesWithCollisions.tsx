@@ -1,13 +1,8 @@
 import { useRef, useState } from 'react'
 import { useAnimationFrame } from './useAnimationFrame'
-import { useKeyAction } from './useKeyAction'
 
 type BoxData = {
-  key: string
-  className?: string
-  content: string | JSX.Element
   height: number
-  link: string
   position: {
     x: number
     y: number
@@ -17,7 +12,7 @@ type BoxData = {
     y: number
   }
   width: number
-}
+} & any
 
 const dragCoefficient = 0.1
 
