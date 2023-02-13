@@ -3,6 +3,7 @@ import Box from './Box'
 import Controls from './Controls'
 import Player from './Player'
 import { useBoxesWithCollisions } from './hooks/useBoxesWithCollisions'
+import { useKeyAction } from './hooks/useKeyAction'
 
 const Boxes = () => {
   const playerSize = { width: 30, height: 30 }
@@ -22,6 +23,47 @@ const Boxes = () => {
     x: 0,
     y: 0,
   })
+
+  useKeyAction([
+    {
+      key: 'ArrowUp',
+      function: () => setControls(c => ({ ...c, y: c.y >= 0 ? -1 : c.y })),
+    },
+    {
+      key: 'ArrowDown',
+      function: () => setControls(c => ({ ...c, y: c.y <= 0 ? 1 : c.y })),
+    },
+    {
+      key: 'ArrowLeft',
+      function: () => setControls(c => ({ ...c, x: c.x >= 0 ? -1 : c.x })),
+    },
+    {
+      key: 'ArrowRight',
+      function: () => setControls(c => ({ ...c, x: c.x <= 0 ? 1 : c.x })),
+    },
+  ])
+
+  useKeyAction(
+    [
+      {
+        key: 'ArrowUp',
+        function: () => setControls(c => ({ ...c, y: c.y < 0 ? 0 : c.y })),
+      },
+      {
+        key: 'ArrowDown',
+        function: () => setControls(c => ({ ...c, y: c.y > 0 ? 0 : c.y })),
+      },
+      {
+        key: 'ArrowLeft',
+        function: () => setControls(c => ({ ...c, x: c.x < 0 ? 0 : c.x })),
+      },
+      {
+        key: 'ArrowRight',
+        function: () => setControls(c => ({ ...c, x: c.x > 0 ? 0 : c.x })),
+      },
+    ],
+    'keyup'
+  )
 
   const { boxes, acceleration } = useBoxesWithCollisions(
     [
