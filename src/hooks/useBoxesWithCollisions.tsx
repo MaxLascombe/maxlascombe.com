@@ -26,7 +26,7 @@ export const useBoxesWithCollisions = (
   controls: { x: -1 | 0 | 1; y: -1 | 0 | 1 }
 ) => {
   // player acceleration
-  const playerKeysForce = 100
+  const playerKeysForce = 200
   const [acceleration, setAcceleration] = useState({ x: 0, y: 0 })
 
   if (controls.x < 0 && acceleration.x >= 0)
