@@ -23,23 +23,23 @@ const dragCoefficient = 0.1
 
 export const useBoxesWithCollisions = (
   initialBoxes: BoxData[],
-  controls: { left: boolean; up: boolean; right: boolean; down: boolean }
+  controls: { x: -1 | 0 | 1; y: -1 | 0 | 1 }
 ) => {
   // player acceleration
   const playerKeysForce = 100
   const [acceleration, setAcceleration] = useState({ x: 0, y: 0 })
 
-  if (controls.left && acceleration.x >= 0)
+  if (controls.x < 0 && acceleration.x >= 0)
     setAcceleration(a => ({ ...a, x: -1 * playerKeysForce }))
-  if (controls.right && acceleration.x <= 0)
+  if (controls.x > 0 && acceleration.x <= 0)
     setAcceleration(a => ({ ...a, x: playerKeysForce }))
-  if (controls.up && acceleration.y >= 0)
+  if (controls.y < 0 && acceleration.y >= 0)
     setAcceleration(a => ({ ...a, y: -1 * playerKeysForce }))
-  if (controls.down && acceleration.y <= 0)
+  if (controls.y > 0 && acceleration.y <= 0)
     setAcceleration(a => ({ ...a, y: playerKeysForce }))
-  if (!controls.left && !controls.right && acceleration.x !== 0)
+  if (controls.x === 0 && acceleration.x !== 0)
     setAcceleration(a => ({ ...a, x: 0 }))
-  if (!controls.up && !controls.down && acceleration.y !== 0)
+  if (controls.y === 0 && acceleration.y !== 0)
     setAcceleration(a => ({ ...a, y: 0 }))
 
   // collisions helper

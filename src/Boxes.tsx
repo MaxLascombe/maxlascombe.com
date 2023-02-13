@@ -18,11 +18,9 @@ const Boxes = () => {
 
   const smallScreen = window.innerWidth < 600
 
-  const [controls, setControls] = useState({
-    left: false,
-    up: false,
-    right: false,
-    down: false,
+  const [controls, setControls] = useState<{ x: -1 | 0 | 1; y: -1 | 0 | 1 }>({
+    x: 0,
+    y: 0,
   })
 
   const { boxes, acceleration } = useBoxesWithCollisions(
@@ -103,34 +101,18 @@ const Boxes = () => {
         <Box {...box}>{box.content}</Box>
       ))}
       <Controls
-        leftPress={() => setControls({ ...controls, left: true })}
+        leftPress={() => setControls(c => ({ ...c, x: -1 }))}
         leftRelease={() =>
-          setControls({
-            ...controls,
-            left: false,
-          })
+          setControls(c => ({ ...c, x: c.x === -1 ? 0 : c.x }))
         }
-        upPress={() => setControls({ ...controls, up: true })}
-        upRelease={() => setControls({ ...controls, up: false })}
-        rightPress={() =>
-          setControls({
-            ...controls,
-            right: true,
-          })
-        }
+        rightPress={() => setControls(c => ({ ...c, x: 1 }))}
         rightRelease={() =>
-          setControls({
-            ...controls,
-            right: false,
-          })
+          setControls(c => ({ ...c, x: c.x === 1 ? 0 : c.x }))
         }
-        downPress={() => setControls({ ...controls, down: true })}
-        downRelease={() =>
-          setControls({
-            ...controls,
-            down: false,
-          })
-        }
+        upPress={() => setControls(c => ({ ...c, y: -1 }))}
+        upRelease={() => setControls(c => ({ ...c, y: c.y === -1 ? 0 : c.y }))}
+        downPress={() => setControls(c => ({ ...c, y: 1 }))}
+        downRelease={() => setControls(c => ({ ...c, y: c.y === 1 ? 0 : c.y }))}
       />
     </div>
   )
