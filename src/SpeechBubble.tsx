@@ -92,12 +92,12 @@ const KeyOption = ({
       <div className='flex h-6 items-center'>
         <div
           className={
-            'flex w-6 items-center justify-center rounded-lg border-2 text-xs uppercase ' +
+            'flex hidden w-6 items-center justify-center rounded-lg border-2 text-xs uppercase md:block ' +
             (pressed ? 'h-5.5 relative top-[2px]' : 'h-6 border-b-4')
           }>
           {keySymbol}
         </div>
-        <div className='ml-1 text-xs'>{children}</div>
+        <div className='ml-1 mr-1 text-xs'>{children}</div>
       </div>
     </div>
   )
