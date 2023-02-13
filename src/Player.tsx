@@ -38,7 +38,7 @@ const Player = ({
   const [speechBubbleIndex, setSpeechBubbleIndex] = useState(0)
 
   const walkingSpeed =
-    Math.abs(vX) < 0.5 ? Infinity : Math.abs(vX) * -8.5 + 1000
+    Math.abs(vX) < 1 ? Infinity : Math.abs(vX / 2) * -8.5 + 1000
 
   useAnimationTimeout(
     () => setSprite(sprite => (sprite + 1) % walkingSprites.length),
