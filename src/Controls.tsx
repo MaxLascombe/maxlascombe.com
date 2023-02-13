@@ -22,7 +22,7 @@ const Controls = ({
   downRelease: () => void
 }) => (
   <div
-    className='fixed bottom-7 right-5 select-none text-white opacity-80 '
+    className='fixed bottom-7 right-5 select-none text-white opacity-80 md:hidden'
     style={{
       height: CONTROL_DIMENSIONS.height * 3,
       width: CONTROL_DIMENSIONS.width * 3,
