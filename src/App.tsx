@@ -2,7 +2,7 @@ import Boxes from './Boxes'
 
 const App = () => {
   return (
-    <div className='truncate'>
+    <div className='truncate select-none'>
       <Boxes />
     </div>
   )
