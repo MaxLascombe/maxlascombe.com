@@ -1,6 +1,6 @@
 import Box from './Box'
 
-const CONTROL_DIMENSIONS = { height: 30, width: 30 }
+const CONTROL_DIMENSIONS = { height: 40, width: 40 }
 
 const Controls = ({
   leftPress,
