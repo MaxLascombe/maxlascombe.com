@@ -26,7 +26,7 @@ export const useBoxesWithCollisions = (
   controls: { x: -1 | 0 | 1; y: -1 | 0 | 1 }
 ) => {
   // player acceleration
-  const playerKeysForce = 200
+  const playerKeysForce = 100
   const [acceleration, setAcceleration] = useState({ x: 0, y: 0 })
 
   if (controls.x < 0 && acceleration.x >= 0)
@@ -89,6 +89,8 @@ export const useBoxesWithCollisions = (
     },
   ])
 
+  const MAX_SPEED = 200
+
   useAnimationFrame(
     dt => {
       setBoxes(boxes => {
@@ -100,13 +102,13 @@ export const useBoxesWithCollisions = (
             box.velocity = {
               x:
                 box.velocity.x +
-                (Math.abs(box.velocity.x) < 100
+                (Math.abs(box.velocity.x) < MAX_SPEED
                   ? acceleration.x * dt * 0.001
                   : 0) -
                 box.velocity.x * dragCoefficient * dt * 0.001,
               y:
                 box.velocity.y +
-                (Math.abs(box.velocity.y) < 100
+                (Math.abs(box.velocity.y) < MAX_SPEED
                   ? acceleration.y * dt * 0.001
                   : 0) -
                 box.velocity.y * dragCoefficient * dt * 0.001,
