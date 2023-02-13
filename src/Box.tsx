@@ -32,6 +32,7 @@ const Box = ({
     return (
       <a
         href={link}
+        target='_blank'
         className='text-black no-underline'
         {...{ onMouseDown, onMouseUp, onTouchStart, onTouchEnd }}>
         <Box
@@ -49,7 +50,7 @@ const Box = ({
     <div
       style={{ height: height + 6, left, top, width }}
       className={
-        'absolute inline-block flex flex-col items-center justify-center rounded-xl border-2 border-b-8 border-white bg-black p-2 text-center text-sm text-white active:mt-0.5 active:border-b-2 ' +
+        'absolute inline-block flex flex-col items-center justify-center rounded-xl border-2 border-b-8 border-white bg-black bg-black p-2 text-center text-sm text-white active:mt-0.5 active:border-b-2 ' +
         className
       }
       {...{ onMouseDown, onMouseUp, onTouchStart, onTouchEnd }}>

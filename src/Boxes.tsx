@@ -65,6 +65,10 @@ const Boxes = () => {
     'keyup'
   )
 
+  const screenHeight = window.innerHeight
+  const contentHeight = 180
+  const topBoxY = Math.max(50, (screenHeight - contentHeight) / 2)
+
   const { boxes, acceleration } = useBoxesWithCollisions(
     [
       {
@@ -87,7 +91,7 @@ const Boxes = () => {
         },
         position: {
           x: window.innerWidth / 2 - 100,
-          y: 50 + (smallScreen ? 100 : 0),
+          y: smallScreen ? Math.max(150, topBoxY) : topBoxY,
         },
         width: 200,
       },
@@ -106,7 +110,7 @@ const Boxes = () => {
             (Object.keys(socialLinks).length * 30) / 2 -
             ((Object.keys(socialLinks).length - 1) * 20) / 2 +
             index * 50,
-          y: 130 + (smallScreen ? 100 : 0),
+          y: smallScreen ? Math.max(230, topBoxY + 80) : topBoxY + 80,
         },
         width: 30,
       })),
@@ -121,7 +125,7 @@ const Boxes = () => {
         },
         position: {
           x: window.innerWidth / 2 - 75,
-          y: 190 + (smallScreen ? 100 : 0),
+          y: smallScreen ? Math.max(290, topBoxY + 140) : topBoxY + 140,
         },
         width: 150,
       },
