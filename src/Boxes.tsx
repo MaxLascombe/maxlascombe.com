@@ -16,6 +16,7 @@ const Boxes = () => {
     li: 'https://www.linkedin.com/in/maxlascombe/',
     gh: 'https://github.com/MaxLascombe',
     yt: 'https://www.youtube.com/MaxLascombe',
+    gf: 'https://www.charlotterenner.com/',
   }
 
   const smallScreen = window.innerWidth < 600
