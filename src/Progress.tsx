@@ -19,7 +19,7 @@ const Progress = () => {
         1000
     ) - MISSED_MEDITATIONS
   const MEDITATION_GOAL = 250
-  const CREATIONS = 1
+  const CREATIONS = 2
   const CREATION_GOAL = 25
 
   const TRIATHLONS = 0
@@ -32,16 +32,21 @@ const Progress = () => {
 
   return (
     <div className='flex h-screen w-full flex-col justify-center bg-black text-white'>
-      <div className='text-center'>
+      <div
+        className='pointer-events-none absolute left-1/2 top-0 h-full w-full max-w-md -translate-x-1/2 border-l border-dotted opacity-25'
+        style={{
+          transform: `translateX(calc(-50% + ${Math.round(
+            yearProgress * 100
+          )}%))`,
+        }}></div>
+      <div className='mb-5 text-center'>
         <Link href='/'>
-          <a className='mb-5 text-2xl'>🏠</a>
+          <a className='mx-2 text-sm'>home</a>
         </Link>
-      </div>
-
-      <div className='text-center'>
+        &#x2022;
         <a
           href='https://lifetothemax.substack.com/p/what-i-will-achieve-in-2023-the-year'
-          className='mb-5 text-sm'>
+          className='mx-2 text-sm'>
           my goals for 2023
         </a>
       </div>
