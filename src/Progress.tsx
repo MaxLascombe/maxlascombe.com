@@ -32,16 +32,6 @@ const Progress = () => {
 
   return (
     <div className='flex h-screen w-full flex-col justify-center overflow-hidden bg-black text-white'>
-      <div className='pointer-events-none fixed top-0 left-0 right-0 bottom-0 mx-5'>
-        <div
-          className='pointer-events-none absolute left-1/2 top-0 h-full w-full max-w-md -translate-x-1/2 border-l border-dotted opacity-25'
-          style={{
-            transform: `translateX(calc(-50% + ${Math.round(
-              yearProgress * 100
-            )}%))`,
-          }}></div>
-      </div>
-
       <div className='mb-5 text-center'>
         <Link href='/'>
           <a className='mx-2 text-sm'>home</a>
@@ -70,7 +60,7 @@ const Progress = () => {
 
       <ProgressBar
         title='Meditate 250 Times'
-        fraction={MEDITATIONS / MEDITATION_GOAL}
+        fraction={Math.round((100 * MEDITATIONS) / MEDITATION_GOAL) / 100}
         exact={`${MEDITATIONS}/${MEDITATION_GOAL}`}
       />
 
