@@ -38,6 +38,7 @@ const Progress = () => {
         </Link>
         &#x2022;
         <a
+          target='_blank'
           href='https://lifetothemax.substack.com/p/what-i-will-achieve-in-2023-the-year'
           className='mx-2 text-sm'>
           my goals for 2023
