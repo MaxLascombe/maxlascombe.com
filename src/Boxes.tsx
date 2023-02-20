@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import Box from './Box'
 import Controls from './Controls'
-import Player from './Player'
 import { useBoxesWithCollisions } from './hooks/useBoxesWithCollisions'
 import { useKeyAction } from './hooks/useKeyAction'
 import { useYearProgress } from './hooks/useYearProgress'
+import Player from './Player'
 
 const Boxes = () => {
   const playerSize = { width: 30, height: 30 }
