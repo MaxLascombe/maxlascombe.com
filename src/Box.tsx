@@ -31,11 +31,18 @@ const Box = ({
   position: { x: left, y: top },
   width,
 }: BoxProps) => {
+        const style = { height: height + 6, left, top, width }
+        const cN = 'absolute inline-block flex flex-col items-center justify-center rounded-xl border-2 border-b-8 border-white bg-black bg-black p-2 text-center text-sm text-white ring-offset-1 focus:ring focus:ring-white active:mt-0.5 active:border-b-2 ' +
+        className
   if (link) {
     if (linkType === 'link')
       return (
         <Link href={link}>
-          <a>
+          <a
+                  style={style}
+      className={
+       cN 
+                  }>
             <Box
               {...{
                 children,
@@ -67,15 +74,15 @@ const Box = ({
     )
   }
   return (
-    <div
-      style={{ height: height + 6, left, top, width }}
+    <button
+      style={style}
       className={
-        'absolute inline-block flex flex-col items-center justify-center rounded-xl border-2 border-b-8 border-white bg-black bg-black p-2 text-center text-sm text-white active:mt-0.5 active:border-b-2 ' +
+        'absolute inline-block flex flex-col items-center justify-center rounded-xl border-2 border-b-8 border-white bg-black bg-black p-2 text-center text-sm text-white ring-offset-1 focus:ring focus:ring-white active:mt-0.5 active:border-b-2 ' +
         className
       }
       {...{ onMouseDown, onMouseUp, onTouchStart, onTouchEnd }}>
       {children}
-    </div>
+    </button>
   )
 }
 
