@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { useAnimationTimeout } from './hooks/useAnimationFrame'
 
 import SpeechBubble from './SpeechBubble'

@@ -84,10 +84,11 @@ const KeyOption = ({
   useAnimationTimeout(() => setPressed(p => !p), 500)
 
   return (
-    <div
+    <button
       onClick={onClick}
       className={
-        'absolute bottom-0 cursor-pointer p-2 ' + (right ? 'right-0' : 'left-0')
+        '-ring-offset-2 absolute bottom-0 cursor-pointer rounded-lg p-2 ring-white/50 hover:ring focus:outline-none focus:ring ' +
+        (right ? 'right-0' : 'left-0')
       }>
       <div className='flex h-6 items-center'>
         <div
@@ -99,7 +100,7 @@ const KeyOption = ({
         </div>
         <div className='ml-1 mr-1 text-xs'>{children}</div>
       </div>
-    </div>
+    </button>
   )
 }
 

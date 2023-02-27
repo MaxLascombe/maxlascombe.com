@@ -20,7 +20,7 @@ type BoxProps = {
 
 const Box = ({
   children,
-  className,
+  className: moreClassName,
   height,
   link,
   linkType = 'a',
@@ -31,20 +31,19 @@ const Box = ({
   position: { x: left, y: top },
   width,
 }: BoxProps) => {
+  const style = { height: height + 6, left, top, width }
+  const className =
+    'text-black no-underline absolute inline-block flex flex-col items-center justify-center rounded-xl focus:outline-none border-2 border-b-8 border-white bg-black bg-black p-2 text-center text-sm text-white ring-offset-2 outline-white ring-offset-black focus:ring hover:ring ring-white active:mt-0.5 active:border-b-2 ' +
+    moreClassName
   if (link) {
     if (linkType === 'link')
       return (
         <Link href={link}>
-          <a>
-            <Box
-              {...{
-                children,
-                className,
-                height,
-                position: { x: left, y: top },
-                width,
-              }}
-            />
+          <a
+            style={style}
+            className={className}
+            {...{ onMouseDown, onMouseUp, onTouchStart, onTouchEnd }}>
+            {children}
           </a>
         </Link>
       )
@@ -52,30 +51,20 @@ const Box = ({
       <a
         href={link}
         target='_blank'
-        className='text-black no-underline'
+        style={style}
+        className={className}
         {...{ onMouseDown, onMouseUp, onTouchStart, onTouchEnd }}>
-        <Box
-          {...{
-            children,
-            className,
-            height,
-            position: { x: left, y: top },
-            width,
-          }}
-        />
+        {children}
       </a>
     )
   }
   return (
-    <div
-      style={{ height: height + 6, left, top, width }}
-      className={
-        'absolute inline-block flex flex-col items-center justify-center rounded-xl border-2 border-b-8 border-white bg-black bg-black p-2 text-center text-sm text-white active:mt-0.5 active:border-b-2 ' +
-        className
-      }
+    <button
+      style={style}
+      className={className}
       {...{ onMouseDown, onMouseUp, onTouchStart, onTouchEnd }}>
       {children}
-    </div>
+    </button>
   )
 }
 
