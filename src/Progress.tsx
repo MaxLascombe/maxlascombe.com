@@ -66,7 +66,7 @@ const Progress = () => {
       />
 
       <ProgressBar
-        title='Create 25 Ceative Creations'
+        title='Create 25 Creative Creations'
         fraction={CREATIONS / CREATION_GOAL}
         exact={`${CREATIONS}/${CREATION_GOAL}`}
       />
