@@ -19,7 +19,7 @@ const Progress = () => {
         1000
     ) - MISSED_MEDITATIONS
   const MEDITATION_GOAL = 250
-  const CREATIONS = 2
+  const CREATIONS = 3
   const CREATION_GOAL = 25
 
   const TRIATHLONS = 0
