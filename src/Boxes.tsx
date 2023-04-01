@@ -118,18 +118,18 @@ const Boxes = () => {
       })),
       {
         key: 'newsletter',
-        content: 'my newsletter',
-        height: 40,
+        content: 'newsletter',
+        height: 30,
         link: 'https://lifetothemax.substack.com/',
         velocity: {
           x: 0,
           y: 0,
         },
         position: {
-          x: window.innerWidth / 2 - 75,
+          x: window.innerWidth / 2 - 65,
           y: smallScreen ? Math.max(270, topBoxY + 120) : topBoxY + 120,
         },
-        width: 150,
+        width: 130,
       },
       {
         key: 'year-progress',
@@ -144,9 +144,21 @@ const Boxes = () => {
         },
         position: {
           x: window.innerWidth / 2 - 150,
-          y: smallScreen ? Math.max(340, topBoxY + 190) : topBoxY + 190,
+          y: smallScreen ? Math.max(320, topBoxY + 170) : topBoxY + 170,
         },
         width: 300,
+      },
+      {
+        key: 'tron',
+        content: 'tron',
+        height: 30,
+        link: 'https://tron.maxlascombe.com/',
+        velocity: { x: 0, y: 0 },
+        position: {
+          x: window.innerWidth / 2 - 30,
+          y: smallScreen ? Math.max(360, topBoxY + 210) : topBoxY + 210,
+        },
+        width: 60,
       },
     ],
     controls
