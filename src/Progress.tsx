@@ -6,9 +6,9 @@ const Progress = () => {
 
   const NEWSLETTERS = 4
   const NEWSLETTER_GOAL = 25
-  const BOOKS = 11
+  const BOOKS = 14
   const BOOK_GOAL = 25
-  const MISSED_MEDITATIONS = 10
+  const MISSED_MEDITATIONS = 13
   const MEDITATIONS =
     Math.floor(
       (new Date().getTime() -
@@ -22,12 +22,12 @@ const Progress = () => {
   const CREATIONS = 3
   const CREATION_GOAL = 25
 
-  const TRIATHLONS = 0
+  const TRIATHLONS = 1
   const TRIATHLON_GOAL = 1
   const MARATHONS = 0
   const MARATHON_GOAL = 1
 
-  const BUCKET_LIST_GOALS = 1
+  const BUCKET_LIST_GOALS = 3
   const BUCKET_LIST_GOAL = 10
 
   return (

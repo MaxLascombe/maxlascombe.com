@@ -133,7 +133,7 @@ const Boxes = () => {
       },
       {
         key: 'year-progress',
-        className: 'p-0 truncate',
+        className: 'truncate',
         content: <ProgressBar />,
         height: 20,
         link: '/progress',
@@ -146,6 +146,7 @@ const Boxes = () => {
           x: window.innerWidth / 2 - 150,
           y: smallScreen ? Math.max(320, topBoxY + 170) : topBoxY + 170,
         },
+        style: { padding: 0 },
         width: 300,
       },
       {
@@ -199,9 +200,9 @@ const ProgressBar = () => {
   const yearProgress = useYearProgress()
   const percentage = `${Math.floor(yearProgress * 100)}%`
   return (
-    <div className='flex h-full w-full flex-row items-center text-xs text-white'>
+    <div className='flex h-32 w-full flex-row items-center text-xs text-white'>
       <div
-        className='h-full bg-white bg-opacity-50'
+        className='h-full bg-gradient-to-l from-white'
         style={{ width: percentage }}>
         {yearProgress > 0.5 && percentage}
       </div>

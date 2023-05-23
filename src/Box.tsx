@@ -15,6 +15,7 @@ type BoxProps = {
     x: number
     y: number
   }
+  style?: any
   width: number
 }
 
@@ -29,9 +30,10 @@ const Box = ({
   onTouchStart,
   onTouchEnd,
   position: { x: left, y: top },
+  style: moreStyle,
   width,
 }: BoxProps) => {
-  const style = { height: height + 6, left, top, width }
+  const style = { height: height + 6, left, top, width, ...moreStyle }
   const className =
     'text-black no-underline absolute inline-block flex flex-col items-center justify-center rounded-xl focus:outline-none border-2 border-b-8 border-white bg-black bg-black p-2 text-center text-sm text-white ring-offset-2 outline-white ring-offset-black focus:ring hover:ring ring-white active:mt-0.5 active:border-b-2 ' +
     moreClassName
