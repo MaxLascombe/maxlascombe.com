@@ -107,12 +107,13 @@ const ProgressBar = ({
       <div className='my-2 flex w-full max-w-md justify-between text-left text-xs'>
         <div className='lowercase'>{title}</div>
         <div>
-          {fraction * 100} % {exact !== undefined && `(${exact})`}
+          {Math.round(fraction * 100000 * 100) / 100000} %{' '}
+          {exact !== undefined && `(${exact})`}
         </div>
       </div>
       <div
         className={
-          'h-3 w-full max-w-md truncate rounded-full border ' +
+          'h-3 w-full max-w-md truncate rounded-full bg-gradient-to-l from-gray-800 ' +
           (title !== 'Year Progress' && fraction < yearProgress
             ? 'border-orange-200'
             : 'border-white')
