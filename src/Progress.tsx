@@ -6,7 +6,7 @@ const Progress = () => {
 
   const NEWSLETTERS = 4
   const NEWSLETTER_GOAL = 25
-  const BOOKS = 14
+  const BOOKS = 15
   const BOOK_GOAL = 25
   const MISSED_MEDITATIONS = 13
   const MEDITATIONS =
