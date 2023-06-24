@@ -6,9 +6,9 @@ const Progress = () => {
 
   const NEWSLETTERS = 4
   const NEWSLETTER_GOAL = 25
-  const BOOKS = 15
+  const BOOKS = 17
   const BOOK_GOAL = 25
-  const MISSED_MEDITATIONS = 13
+  const MISSED_MEDITATIONS = 14
   const MEDITATIONS =
     Math.floor(
       (new Date().getTime() -
@@ -19,7 +19,7 @@ const Progress = () => {
         1000
     ) - MISSED_MEDITATIONS
   const MEDITATION_GOAL = 250
-  const CREATIONS = 3
+  const CREATIONS = 4
   const CREATION_GOAL = 25
 
   const TRIATHLONS = 1
@@ -34,14 +34,14 @@ const Progress = () => {
     <div className='flex h-screen w-full flex-col justify-center overflow-hidden bg-black text-white'>
       <div className='mb-5 text-center'>
         <Link href='/'>
-          <a className='mx-2 text-sm'>home</a>
+          <a className='mx-2 text-sm hover:underline'>Home</a>
         </Link>
         &#x2022;
         <a
           target='_blank'
           href='https://lifetothemax.substack.com/p/what-i-will-achieve-in-2023-the-year'
-          className='mx-2 text-sm'>
-          my goals for 2023
+          className='mx-2 text-sm hover:underline'>
+          My goals for 2023
         </a>
       </div>
 
@@ -111,15 +111,12 @@ const ProgressBar = ({
           {exact !== undefined && `(${exact})`}
         </div>
       </div>
-      <div
-        className={
-          'h-3 w-full max-w-md truncate rounded-full bg-gradient-to-l from-gray-800 ' +
-          (title !== 'Year Progress' && fraction < yearProgress
-            ? 'border-orange-200'
-            : 'border-white')
-        }>
+      <div className='h-4 w-full max-w-md truncate rounded-full border-2 border-white'>
         <div
-          className='h-full rounded-full bg-white'
+          className={
+            'h-full rounded-full ' +
+            (fraction >= 1 ? 'bg-white' : 'bg-gradient-to-l from-white')
+          }
           style={{ width: `${fraction * 100}%` }}></div>
       </div>
     </div>
