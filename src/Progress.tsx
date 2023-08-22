@@ -8,7 +8,7 @@ const Progress = () => {
   const NEWSLETTER_GOAL = 25
   const BOOKS = 18
   const BOOK_GOAL = 25
-  const MISSED_MEDITATIONS = 15
+  const MISSED_MEDITATIONS = 22
   const MEDITATIONS =
     Math.floor(
       (new Date().getTime() -
@@ -19,7 +19,7 @@ const Progress = () => {
         1000
     ) - MISSED_MEDITATIONS
   const MEDITATION_GOAL = 250
-  const CREATIONS = 5
+  const CREATIONS = 6
   const CREATION_GOAL = 25
 
   const TRIATHLONS = 1
@@ -101,7 +101,6 @@ const ProgressBar = ({
   fraction: number
   title: string
 }) => {
-  const yearProgress = useYearProgress()
   return (
     <div className='mb-3 flex flex-col items-center justify-center px-5'>
       <div className='my-2 flex w-full max-w-md justify-between text-left text-xs'>
@@ -113,11 +112,8 @@ const ProgressBar = ({
       </div>
       <div className='h-4 w-full max-w-md truncate rounded-full border-2 border-white'>
         <div
-          className={
-            'h-full rounded-full ' +
-            (fraction >= 1 ? 'bg-white' : 'bg-gradient-to-l from-white')
-          }
-          style={{ width: `${fraction * 100}%` }}></div>
+          className='h-full rounded-full bg-gradient-to-l from-white'
+          style={{ width: `${Math.min(fraction, 1) * 100}%` }}></div>
       </div>
     </div>
   )
