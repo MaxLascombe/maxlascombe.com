@@ -27,7 +27,7 @@ const Progress = () => {
   const MARATHONS = 0
   const MARATHON_GOAL = 1
 
-  const BUCKET_LIST_GOALS = 4
+  const BUCKET_LIST_GOALS = 5
   const BUCKET_LIST_GOAL = 10
 
   return (
