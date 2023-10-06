@@ -4,11 +4,11 @@ import { useYearProgress } from './hooks/useYearProgress'
 const Progress = () => {
   const yearProgress = useYearProgress()
 
-  const NEWSLETTERS = 7
+  const NEWSLETTERS = 8
   const NEWSLETTER_GOAL = 25
   const BOOKS = 19
   const BOOK_GOAL = 25
-  const MISSED_MEDITATIONS = 34
+  const MISSED_MEDITATIONS = 35
   const MEDITATIONS =
     Math.floor(
       (new Date().getTime() -
