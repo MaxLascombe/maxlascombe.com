@@ -6,9 +6,9 @@ const Progress = () => {
 
   const NEWSLETTERS = 8
   const NEWSLETTER_GOAL = 25
-  const BOOKS = 19
+  const BOOKS = 20
   const BOOK_GOAL = 25
-  const MISSED_MEDITATIONS = 46
+  const MISSED_MEDITATIONS = 51
   const MEDITATIONS =
     Math.floor(
       (new Date().getTime() -
@@ -24,7 +24,7 @@ const Progress = () => {
 
   const TRIATHLONS = 1
   const TRIATHLON_GOAL = 1
-  const MARATHONS = 0
+  const MARATHONS = 1
   const MARATHON_GOAL = 1
 
   const COMPLETED_BUCKET_LIST_GOALS = [
@@ -34,6 +34,7 @@ const Progress = () => {
     'Eat tacos in Mexico City',
     'Go to a movie festival',
     'Build a piece of furniture out of wood',
+    'Run the NYC Marathon',
   ]
   const BUCKET_LIST_GOALS = COMPLETED_BUCKET_LIST_GOALS.length
   const BUCKET_LIST_GOAL = 10
