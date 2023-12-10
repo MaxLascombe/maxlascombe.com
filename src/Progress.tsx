@@ -8,7 +8,7 @@ const Progress = () => {
   const NEWSLETTER_GOAL = 25
   const BOOKS = 22
   const BOOK_GOAL = 25
-  const MISSED_MEDITATIONS = 67
+  const MISSED_MEDITATIONS = 73
   const MEDITATIONS =
     Math.floor(
       (new Date().getTime() -
