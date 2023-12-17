@@ -4,11 +4,11 @@ import { useYearProgress } from './hooks/useYearProgress'
 const Progress = () => {
   const yearProgress = useYearProgress()
 
-  const NEWSLETTERS = 8
+  const NEWSLETTERS = 9
   const NEWSLETTER_GOAL = 25
   const BOOKS = 22
   const BOOK_GOAL = 25
-  const MISSED_MEDITATIONS = 73
+  const MISSED_MEDITATIONS = 78
   const MEDITATIONS =
     Math.floor(
       (new Date().getTime() -
@@ -19,7 +19,7 @@ const Progress = () => {
         1000
     ) - MISSED_MEDITATIONS
   const MEDITATION_GOAL = 250
-  const CREATIONS = 12
+  const CREATIONS = 14
   const CREATION_GOAL = 25
 
   const TRIATHLONS = 1
@@ -35,6 +35,7 @@ const Progress = () => {
     'Go to a movie festival',
     'Build a piece of furniture out of wood',
     'Run the NYC Marathon',
+    'Create a font'
   ]
   const BUCKET_LIST_GOALS = COMPLETED_BUCKET_LIST_GOALS.length
   const BUCKET_LIST_GOAL = 10
