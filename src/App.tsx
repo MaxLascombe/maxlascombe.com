@@ -1,6 +1,6 @@
-import { Redirect, Route, Switch } from 'wouter'
+import { Redirect, Route, Router, Switch } from 'wouter'
 import Boxes from './Boxes'
-import Progress from './Progress'
+import { ProgressRoutes } from './progress/routes'
 
 const App = () => {
   return (
@@ -9,9 +9,9 @@ const App = () => {
         <Route path='/'>
           <Boxes />
         </Route>
-        <Route path='/progress'>
-          <Progress />
-        </Route>
+        <Router base='/progress'>
+          <ProgressRoutes />
+        </Router>
         <Redirect to='/' />
       </Switch>
     </div>
