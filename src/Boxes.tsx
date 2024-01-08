@@ -202,7 +202,7 @@ const ProgressBar = () => {
   return (
     <div className='flex h-32 w-full flex-row items-center text-xs text-white'>
       <div
-        className='h-full bg-gradient-to-l from-white'
+        className='h-full rounded-full bg-gradient-to-l from-white'
         style={{ width: percentage }}>
         {yearProgress > 0.5 && percentage}
       </div>

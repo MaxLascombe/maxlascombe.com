@@ -5,8 +5,8 @@ export const goals: Record<
   2023: {
     link: 'https://open.substack.com/pub/lifetothemax/p/what-i-will-achieve-in-2023-the-year',
     goals: [
-      ['Post 25 Newsletters', 9, 25],
-      ['Read 25 Books', 24, 25],
+      ['Post 25 Newsletters', 10, 25],
+      ['Read 25 Books', 25, 25],
       ['Meditate 250 Times', 280, 250],
       ['Create 25 Creative Creations', 15, 25],
       ['Complete a Triathlon', 1, 1],
@@ -33,7 +33,7 @@ export const goals: Record<
         ),
         250,
       ],
-      ['Do 36,500 pushups', 0, 36500],
+      ['Do 36,500 pushups', 466, 36500],
       ['Do 100 endurance workouts', 0, 100],
       ['Check seven items off my bucket list', 0, 7],
       ['Travel to five different countries', 1, 5],
