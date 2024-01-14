@@ -1,3 +1,5 @@
+const MISSED_MEDITATIONS_2024 = 3
+
 export const goals: Record<
   number,
   { link: string | undefined; goals: [string, number, number][] }
@@ -18,13 +20,14 @@ export const goals: Record<
     link: 'https://lifetothemax.substack.com/p/2024-goals',
     goals: [
       ['Publish 42 creations (including newsletters)', 1, 42],
-      ['Read 25 books', 0, 25],
+      ['Read 25 books', 1, 25],
       [
         'Meditate 250 times',
         Math.max(
           0,
           Math.floor(
-            (new Date().getTime() - new Date(2024, 0, 0).getTime()) /
+            (new Date().getTime() -
+              new Date(2024, 0, MISSED_MEDITATIONS_2024).getTime()) /
               24 /
               60 /
               60 /
@@ -33,10 +36,10 @@ export const goals: Record<
         ),
         250,
       ],
-      ['Do 36,500 pushups', 466, 36500],
+      ['Do 36,500 pushups', 592, 36500],
       ['Do 100 endurance workouts', 0, 100],
       ['Check seven items off my bucket list', 0, 7],
-      ['Travel to five different countries', 1, 5],
+      ['Travel to five different countries', 2, 5],
       ['Have a conversation in Tagalog', 0, 1],
       ['Complete all 16 of my work milestones', 0, 16],
     ],
