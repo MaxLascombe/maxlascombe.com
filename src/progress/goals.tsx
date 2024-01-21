@@ -1,4 +1,4 @@
-const MISSED_MEDITATIONS_2024 = 3
+const MISSED_MEDITATIONS_2024 = 4
 
 export const goals: Record<
   number,
@@ -36,8 +36,8 @@ export const goals: Record<
         ),
         250,
       ],
-      ['Do 36,500 pushups', 592, 36500],
-      ['Do 100 endurance workouts', 0, 100],
+      ['Do 36,500 pushups', 1356, 36500],
+      ['Do 100 endurance workouts', 1, 100],
       ['Check seven items off my bucket list', 0, 7],
       ['Travel to five different countries', 2, 5],
       ['Have a conversation in Tagalog', 0, 1],
