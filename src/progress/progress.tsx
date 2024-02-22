@@ -32,6 +32,20 @@ export const Progress = ({
 
       <ProgressBar title='Year Progress' fraction={yearProgress} />
 
+      <ProgressBar
+        title='Mega Progress Bar (all the other ones combined)'
+        fraction={
+          goals[year].goals.reduce(
+            (acc, [_, progress, goal]) => acc + progress / goal,
+            0
+          ) / goals[year].goals.length
+        }
+      />
+
+      <div className='flex justify-center py-5'>
+        <hr className='w-full max-w-md' />
+      </div>
+
       {year in goals ? (
         goals[year].goals.map(([title, progress, goal]) => (
           <ProgressBar
