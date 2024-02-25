@@ -17,15 +17,15 @@ export const goals: Record<
   2024: {
     link: 'https://lifetothemax.substack.com/p/2024-goals',
     goals: [
-      ['Publish 42 creations (including newsletters)', 1, 42],
+      ['Publish 42 creations (including newsletters)', 2, 42],
       ['Read 25 books', 2, 25],
-      ['Meditate 250 times', 39, 250],
-      ['Do 36,500 pushups', 4_747, 36_500],
-      ['Do 100 endurance workouts', 12, 100],
+      ['Meditate 250 times', 44, 250],
+      ['Do 36,500 pushups', 5_629, 36_500],
+      ['Do 100 endurance workouts', 13, 100],
       ['Check seven items off my bucket list', 0, 7],
       ['Travel to five different countries', 2, 5],
       ['Have a conversation in Tagalog', 0, 1],
-      ['Complete all 16 of my work milestones', 0, 16],
+      ['Complete all 16 of my work milestones', 1, 16],
     ],
   },
 }
