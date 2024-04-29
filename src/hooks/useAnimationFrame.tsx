@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 export const useAnimationFrame = (
   stepFunction: (dt: number) => void,
@@ -7,17 +7,20 @@ export const useAnimationFrame = (
   const lastTimeRef = useRef<number>()
   const animationRef: { current: any } = useRef()
 
-  const animate = (time: number) => {
-    if (lastTimeRef.current !== undefined)
-      stepFunction(time - lastTimeRef.current)
-    lastTimeRef.current = time
-    animationRef.current = requestAnimationFrame(animate)
-  }
+  const animate = useCallback(
+    (time: number) => {
+      if (lastTimeRef.current !== undefined)
+        stepFunction(time - lastTimeRef.current)
+      lastTimeRef.current = time
+      animationRef.current = requestAnimationFrame(animate)
+    },
+    [stepFunction]
+  )
 
   useEffect(() => {
     animationRef.current = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(animationRef.current)
-  }, args)
+  }, [args, animate])
 
   return animationRef
 }

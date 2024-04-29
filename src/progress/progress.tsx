@@ -22,6 +22,7 @@ export const Progress = ({
             &#x2022;
             <a
               target='_blank'
+              rel='noreferrer'
               href={newsletterLink}
               className='mx-2 text-sm hover:underline'>
               My goals for {year}

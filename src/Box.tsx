@@ -53,6 +53,7 @@ const Box = ({
       <a
         href={link}
         target='_blank'
+        rel='noreferrer'
         style={style}
         className={className}
         {...{ onMouseDown, onMouseUp, onTouchStart, onTouchEnd }}>

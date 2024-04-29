@@ -28,12 +28,13 @@ const Progress = () => {
   return (
     <div className='flex h-screen w-full flex-col justify-center overflow-hidden bg-black text-white'>
       <div className='mb-5 text-center'>
-        <Link href='/'>
-          <a className='mx-2 text-sm hover:underline'>Home</a>
+        <Link href='/' className='mx-2 text-sm hover:underline'>
+          Home
         </Link>
         &#x2022;
         <a
           target='_blank'
+          rel='noreferrer'
           href='https://lifetothemax.substack.com/p/what-i-will-achieve-in-2023-the-year'
           className='mx-2 text-sm hover:underline'>
           My goals for 2023
