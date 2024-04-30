@@ -62,13 +62,18 @@ const Player = ({
           top,
         }}
         className='absolute'>
-        <img
-          src={walkingSprites[sprite]}
-          alt='player'
-          className={
-            'h-full w-full ' + (walkingRight ? '' : '-scale-x-100 transform')
-          }
-        />
+        {walkingSprites.map((src, index) => (
+          <img
+            key={src}
+            src={src}
+            alt='player'
+            className={
+              'absolute top-0 h-full w-full transition-opacity duration-500 ease-out ' +
+              (walkingRight ? '' : '-scale-x-100 transform ') +
+              (index === sprite ? '' : 'opacity-0')
+            }
+          />
+        ))}
       </div>
       {speechBubbleIndex < SPEECH_BUBBLES.length && (
         <SpeechBubble
