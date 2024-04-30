@@ -154,6 +154,7 @@ const Boxes = () => {
         content: 'bucket list',
         height: 30,
         link: '/bucket-list',
+        linkType: 'link',
         velocity: { x: 0, y: 0 },
         position: {
           x: window.innerWidth / 2 - 50,
