@@ -175,9 +175,12 @@ const Boxes = () => {
           velocity: boxes[0].velocity,
         }}
       />
-      {boxes.slice(1).map(box => (
-        <Box {...box}>{box.content}</Box>
-      ))}
+      {boxes
+        .slice(1)
+        .sort((a, b) => a.position.y - b.position.y)
+        .map(box => (
+          <Box {...box}>{box.content}</Box>
+        ))}
       <Controls
         leftPress={() => setControls(c => ({ ...c, x: -1 }))}
         leftRelease={() =>
