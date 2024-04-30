@@ -1,20 +1,37 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+
+const useWindowIsFocused = () => {
+  const [focused, setFocus] = useState(true)
+
+  useEffect(() => {
+    window.addEventListener('focus', () => setFocus(true))
+    window.addEventListener('blur', () => setFocus(false))
+
+    return () => {
+      window.removeEventListener('focus', () => setFocus(true))
+      window.removeEventListener('blur', () => setFocus(false))
+    }
+  }, [])
+
+  return focused
+}
 
 export const useAnimationFrame = (
   stepFunction: (dt: number) => void,
   ...args: any[]
 ) => {
+  const windowIsFocused = useWindowIsFocused()
   const lastTimeRef = useRef<number>()
   const animationRef: { current: any } = useRef()
 
   const animate = useCallback(
     (time: number) => {
-      if (lastTimeRef.current !== undefined)
+      if (lastTimeRef.current !== undefined && windowIsFocused)
         stepFunction(time - lastTimeRef.current)
       lastTimeRef.current = time
       animationRef.current = requestAnimationFrame(animate)
     },
-    [stepFunction]
+    [stepFunction, windowIsFocused]
   )
 
   useEffect(() => {

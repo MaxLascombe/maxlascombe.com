@@ -68,7 +68,7 @@ const Boxes = () => {
   )
 
   const screenHeight = window.innerHeight
-  const contentHeight = 210
+  const contentHeight = 260
   const topBoxY = Math.max(50, (screenHeight - contentHeight) / 2)
 
   const { boxes, acceleration } = useBoxesWithCollisions(
@@ -150,6 +150,18 @@ const Boxes = () => {
         width: 300,
       },
       {
+        key: 'bucket list',
+        content: 'bucket list',
+        height: 30,
+        link: '/bucket-list',
+        velocity: { x: 0, y: 0 },
+        position: {
+          x: window.innerWidth / 2 - 50,
+          y: smallScreen ? Math.max(360, topBoxY + 210) : topBoxY + 210,
+        },
+        width: 100,
+      },
+      {
         key: 'tron',
         content: 'tron',
         height: 30,
@@ -157,7 +169,7 @@ const Boxes = () => {
         velocity: { x: 0, y: 0 },
         position: {
           x: window.innerWidth / 2 - 30,
-          y: smallScreen ? Math.max(360, topBoxY + 210) : topBoxY + 210,
+          y: smallScreen ? Math.max(360, topBoxY + 210) : topBoxY + 260,
         },
         width: 60,
       },

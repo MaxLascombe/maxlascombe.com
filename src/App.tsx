@@ -1,5 +1,6 @@
 import { Redirect, Route, Router, Switch } from 'wouter'
 import Boxes from './Boxes'
+import { BucketList } from './bucket-list'
 import { ProgressRoutes } from './progress/routes'
 
 const App = () => {
@@ -8,6 +9,9 @@ const App = () => {
       <Switch>
         <Route path='/'>
           <Boxes />
+        </Route>
+        <Route path='/bucket-list'>
+          <BucketList />
         </Route>
         <Router base='/progress'>
           <ProgressRoutes />
