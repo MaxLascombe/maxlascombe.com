@@ -5,7 +5,7 @@ import { ProgressRoutes } from './progress/routes'
 
 const App = () => {
   return (
-    <div className='select-none truncate'>
+    <div className='truncate'>
       <Switch>
         <Route path='/'>
           <Boxes />

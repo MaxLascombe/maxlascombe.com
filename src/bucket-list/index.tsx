@@ -65,20 +65,30 @@ const Goal = ({
   title: string
   dateDone: DateType | 'thisyear' | null
 }) => (
-  <div
-    className={
-      'flex w-96 items-center justify-between ' +
-      (dateDone && dateDone !== 'thisyear' ? 'text-green-400' : '')
-    }>
-    <div className='w-10 flex-shrink-0'>{number}</div>
-    <div className='flex flex-grow flex-col gap-1 text-wrap'>
-      <div>{title}</div>
-      {dateDone && dateDone !== 'thisyear' && (
-        <div className='text-xs italic'>Done on: {dateDone}</div>
-      )}
+  <div className='group flex w-full gap-3'>
+    <div className='flex-1'></div>
+    <div
+      className={
+        'flex-0 flex w-96 items-center justify-between ' +
+        (dateDone && dateDone !== 'thisyear' ? 'text-green-400' : '')
+      }>
+      <div className='w-10 flex-shrink-0'>{number}</div>
+      <div className='flex flex-grow flex-col gap-1 text-wrap'>
+        <div>{title}</div>
+        {dateDone && dateDone !== 'thisyear' && (
+          <div className='text-xs italic'>Done on: {dateDone}</div>
+        )}
+      </div>
+      <div className='w-8 flex-shrink-0 text-right'>
+        {dateDone ? (dateDone === 'thisyear' ? '🤞' : '✅') : '◽️'}
+      </div>
     </div>
-    <div className='w-8 flex-shrink-0 text-right'>
-      {dateDone ? (dateDone === 'thisyear' ? '🤞' : '✅') : '◽️'}
+    <div className='flex flex-1 items-center'>
+      <a
+        href={mailto(`${number}: ${title}`)}
+        className='hidden text-xs group-hover:block'>
+        I want to do this with you!
+      </a>
     </div>
   </div>
 )
@@ -86,3 +96,6 @@ const Goal = ({
 const SectionHeader = ({ title }: { title: string }) => (
   <div className='mb-2 mt-10 text-center text-xl font-bold'>{title}</div>
 )
+
+const mailto = (goal: string) =>
+  `mailto:maxlascombe%40gmail.com?subject=I%20want%20to%20do%20this%20with%20you!&body=Hi%20Max!%0A%0AI%20saw%20your%20bucket%20list%20and%20I%20want%20to%20do%20this%20goal%20with%20you:%0A%0A${goal}%0A%0AHere%20is%20my%20name%20and%20a%20little%20bit%20about%20me:`

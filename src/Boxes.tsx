@@ -179,7 +179,7 @@ const Boxes = () => {
   )
 
   return (
-    <div className='relative h-screen bg-black'>
+    <div className='relative h-screen select-none bg-black'>
       <Player
         {...{
           acceleration,
