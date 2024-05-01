@@ -7,13 +7,16 @@ export const BucketList = () => {
       <Link href='../..' className='mx-2 text-sm hover:underline'>
         Home
       </Link>
-      <div className='md:fixed md:right-5 md:top-5 md:text-right'>
+      <div className='text-center md:fixed md:right-5 md:top-5 md:text-right'>
         <div>
           Done:{' '}
           <span className='text-green-400'>
             {
               goals.filter(
-                g => typeof g === 'object' && typeof g[1] === 'string'
+                g =>
+                  typeof g === 'object' &&
+                  typeof g[1] === 'string' &&
+                  g[1] !== 'thisyear'
               ).length
             }
           </span>
@@ -32,6 +35,7 @@ export const BucketList = () => {
             }
           </span>
         </div>
+        <div>🤞 = hope to get done this year</div>
       </div>
       {goals.map((goal, index) => {
         if (typeof goal === 'string')
@@ -59,20 +63,22 @@ const Goal = ({
 }: {
   number: number
   title: string
-  dateDone: DateType | null
+  dateDone: DateType | 'thisyear' | null
 }) => (
   <div
     className={
       'flex w-96 items-center justify-between ' +
-      (dateDone ? 'text-green-400' : '')
+      (dateDone && dateDone !== 'thisyear' ? 'text-green-400' : '')
     }>
     <div className='w-10 flex-shrink-0'>{number}</div>
     <div className='flex flex-grow flex-col gap-1 text-wrap'>
       <div>{title}</div>
-      {dateDone && <div className='text-xs italic'>Done on: {dateDone}</div>}
+      {dateDone && dateDone !== 'thisyear' && (
+        <div className='text-xs italic'>Done on: {dateDone}</div>
+      )}
     </div>
     <div className='w-8 flex-shrink-0 text-right'>
-      {dateDone ? '✅' : '◽️'}
+      {dateDone ? (dateDone === 'thisyear' ? '🤞' : '✅') : '◽️'}
     </div>
   </div>
 )
