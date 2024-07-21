@@ -36,7 +36,7 @@ export const goals: (Header | [Title, Date | 'thisyear' | null])[] = [
   ['Do a food tour of Italy', null],
   ['See Kangaroos or Koalas in Australia', 'thisyear'],
   ['Climb Mount Fuji', 'thisyear'],
-  ['Travel through Asia for six months', 'thisyear'],
+  ['Travel through Asia for six months', '2024-07-12'],
   'Physical feats',
   ['Go skydiving', null],
   ['Go bungee jumping', null],
