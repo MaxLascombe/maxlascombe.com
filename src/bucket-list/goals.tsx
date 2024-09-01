@@ -55,7 +55,7 @@ export const goals: (Header | [Title, Date | 'thisyear' | null])[] = [
   ['Kayak down the Seine', null],
   ['Bike from Lille to Marseille ', null],
   ['Do a kickflip', null],
-  ['Go cliff jumping ', null],
+  ['Go cliff jumping', '2024-08-31'],
   ['Do an entire training program for a race with a friend', '2023-05-11'],
   ['Go kite surfing', 'thisyear'],
   'Creative goals',
