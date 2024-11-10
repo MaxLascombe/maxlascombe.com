@@ -45,7 +45,7 @@ export const goals: Record<
       ],
       ['Travel to five different countries', 5, 5],
       ['Have a conversation in Tagalog', 0, 1],
-      ['Complete all 16 of my work milestones', 10, 16],
+      ['Complete all work milestones', 10, 10],
     ],
   },
 }
