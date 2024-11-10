@@ -35,8 +35,8 @@ export const goals: Record<
     goals: [
       ['Publish 42 creations (including newsletters)', 19, 42],
       ['Read 25 books', 19, 25],
-      ['Meditate 250 times', 221, 250],
-      ['Do 36,500 pushups', 15_939, 36_500],
+      ['Meditate 250 times', 223, 250],
+      ['Do 36,500 pushups', 16_089, 36_500],
       ['Do 100 endurance workouts', 60, 100],
       [
         'Check seven items off my bucket list',
