@@ -33,10 +33,10 @@ export const goals: Record<
   2024: {
     link: 'https://lifetothemax.substack.com/p/2024-goals',
     goals: [
-      ['Publish 42 creations (including newsletters)', 22, 42],
+      ['Publish 42 creations (including newsletters)', 23, 42],
       ['Read 25 books', 20, 25],
-      ['Meditate 250 times', 230, 250],
-      ['Do 36,500 pushups', 16_789, 36_500],
+      ['Meditate 250 times', 233, 250],
+      ['Do 36,500 pushups', 17_089, 36_500],
       ['Do 100 endurance workouts', 60, 100],
       [
         'Check seven items off my bucket list',
