@@ -28,14 +28,38 @@ type PlayerProps = {
   }
 }
 
-const Player = ({
-  acceleration: { x: aX },
-  position: { x, y },
-  size: { height: initialHeight, width: initialWidth },
-  velocity: { x: vX },
-}: PlayerProps) => {
+// on the hour and half hour
+const clockSprites = [
+  '🕕',
+  '🕖',
+  '🕗',
+  '🕘',
+  '🕙',
+  '🕚',
+  '🕛',
+  '🕐',
+  '🕑',
+  '🕒',
+  '🕓',
+  '🕔',
+]
+export const ClockSprite = () => {
   const [sprite, setSprite] = useState(0)
-  const [speechBubbleIndex, setSpeechBubbleIndex] = useState(0)
+  useAnimationTimeout(
+    () => setSprite(sprite => (sprite + 1) % clockSprites.length),
+    100
+  )
+  return <>{clockSprites[sprite]}</>
+}
+
+export const PlayerSprite = ({
+  vX,
+  walkingRight,
+}: {
+  vX: number
+  walkingRight: boolean
+}) => {
+  const [sprite, setSprite] = useState(0)
 
   const walkingSpeed =
     Math.abs(vX) < 1 ? Infinity : Math.abs(vX / 2) * -8.5 + 1000
@@ -44,6 +68,32 @@ const Player = ({
     () => setSprite(sprite => (sprite + 1) % walkingSprites.length),
     walkingSpeed
   )
+
+  return (
+    <>
+      {walkingSprites.map((src, index) => (
+        <img
+          key={src}
+          src={src}
+          alt='player'
+          className={
+            'absolute top-0 h-full w-full transition-opacity duration-500 ease-out ' +
+            (walkingRight ? '' : '-scale-x-100 transform ') +
+            (index === sprite ? '' : 'opacity-0')
+          }
+        />
+      ))}
+    </>
+  )
+}
+
+const Player = ({
+  acceleration: { x: aX },
+  position: { x, y },
+  size: { height: initialHeight, width: initialWidth },
+  velocity: { x: vX },
+}: PlayerProps) => {
+  const [speechBubbleIndex, setSpeechBubbleIndex] = useState(0)
 
   const walkingRight = aX > 0 ? true : aX < 0 ? false : vX > 0
 
@@ -62,18 +112,7 @@ const Player = ({
           top,
         }}
         className='absolute'>
-        {walkingSprites.map((src, index) => (
-          <img
-            key={src}
-            src={src}
-            alt='player'
-            className={
-              'absolute top-0 h-full w-full transition-opacity duration-500 ease-out ' +
-              (walkingRight ? '' : '-scale-x-100 transform ') +
-              (index === sprite ? '' : 'opacity-0')
-            }
-          />
-        ))}
+        <PlayerSprite vX={vX} walkingRight={walkingRight} />
       </div>
       {speechBubbleIndex < SPEECH_BUBBLES.length && (
         <SpeechBubble

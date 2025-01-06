@@ -1,6 +1,45 @@
 import { Link } from 'wouter'
 import { useYearProgress } from '../hooks/useYearProgress'
+import { ClockSprite, PlayerSprite } from '../Player'
 import { goals } from './goals'
+
+const RaceComponent = ({
+  progress,
+  year,
+  yearProgress,
+}: {
+  progress: number
+  year: number
+  yearProgress: number
+}) => (
+  <div className='fixed bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black to-transparent p-5'>
+    <div className='absolute bottom-5 left-5 right-5 flex h-5 items-end border border-t-0 border-white'>
+      {goals[year].goals.map(([_, progress, goal], index, arr) => (
+        <div
+          key={index}
+          className={
+            'h-2 rounded-full bg-gradient-to-r ' +
+            neonGradients[index % neonGradients.length]
+          }
+          style={{
+            width: `${Math.min((progress / goal) * 100, 100) / arr.length}%`,
+          }}></div>
+      ))}
+    </div>
+    <div className='absolute bottom-5 left-5 right-5'>
+      <div
+        className='absolute bottom-0 h-[60px] w-[60px] -translate-x-1/2'
+        style={{ left: `${progress}%` }}>
+        <PlayerSprite vX={200} walkingRight={true} />
+      </div>
+      <div
+        className='absolute bottom-2 -translate-x-1/2'
+        style={{ left: `${yearProgress * 100}%` }}>
+        <ClockSprite />
+      </div>
+    </div>
+  </div>
+)
 
 export const Progress = ({
   newsletterLink,
@@ -11,80 +50,104 @@ export const Progress = ({
 }) => {
   const yearProgress = useYearProgress(year)
 
+  const megaProgress =
+    goals[year].goals.reduce(
+      (acc, [_, progress, goal]) => acc + Math.min(progress / goal, 1),
+      0
+    ) / goals[year].goals.length
   return (
-    <div className='flex h-screen w-full flex-col justify-center overflow-hidden bg-black text-white'>
-      <div className='mb-5 text-center'>
-        <Link href='../..' className='mx-2 text-sm hover:underline'>
+    <div className='flex flex-col gap-5 p-5'>
+      <h1 className='text-wrap py-5 text-8xl font-bold text-white'>
+        My goals for {year}
+      </h1>
+
+      <div className='flex gap-10 text-white'>
+        <Link href='../..' className='text-sm hover:underline'>
           Home
         </Link>
         {newsletterLink !== undefined && (
-          <>
-            &#x2022;
-            <a
-              target='_blank'
-              rel='noreferrer'
-              href={newsletterLink}
-              className='mx-2 text-sm hover:underline'>
-              My goals for {year}
-            </a>
-          </>
+          <a
+            target='_blank'
+            rel='noreferrer'
+            href={newsletterLink}
+            className='mx-2 text-sm hover:underline'>
+            Read about my goals here
+          </a>
         )}
       </div>
 
-      <ProgressBar title='Year Progress' fraction={yearProgress} />
-
-      <ProgressBar
-        title='Mega Progress Bar (all the other ones combined)'
-        fraction={
-          goals[year].goals.reduce(
-            (acc, [_, progress, goal]) => acc + progress / goal,
-            0
-          ) / goals[year].goals.length
-        }
-      />
-
-      <div className='flex justify-center py-5'>
-        <hr className='w-full max-w-md' />
+      <div className='mb-48 grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4'>
+        {goals[year].goals.map(([title, progress, goal], index) => (
+          <ProgressBar
+            key={title}
+            title={title}
+            progress={progress}
+            goal={goal}
+            gradient={neonGradients[index % neonGradients.length]}
+          />
+        ))}
       </div>
 
-      {year in goals ? (
-        goals[year].goals.map(([title, progress, goal]) => (
-          <ProgressBar
-            title={title}
-            fraction={progress / goal}
-            exact={`${progress}/${goal}`}
-          />
-        ))
-      ) : (
-        <div className='text-center'>No goals for {year}</div>
-      )}
+      <RaceComponent
+        progress={megaProgress * 100}
+        year={year}
+        yearProgress={yearProgress}
+      />
     </div>
   )
 }
 
 const ProgressBar = ({
-  exact,
-  fraction,
   title,
+  progress,
+  goal,
+  gradient,
 }: {
-  exact?: string
-  fraction: number
   title: string
+  progress: number
+  goal: number
+  gradient: string
 }) => {
   return (
-    <div className='mb-3 flex flex-col items-center justify-center px-5'>
-      <div className='my-2 flex w-full max-w-md justify-between text-left text-xs'>
-        <div className='lowercase'>{title}</div>
-        <div>
-          {Math.round(fraction * 100000 * 100) / 100000} %{' '}
-          {exact !== undefined && `(${exact})`}
-        </div>
-      </div>
-      <div className='h-4 w-full max-w-md truncate rounded-full border-2 border-white'>
+    <div key={title} className='flex flex-col gap-2 py-6'>
+      <p className='text-sm/6 font-medium text-gray-400'>{title}</p>
+      <p className='flex items-baseline gap-x-2'>
+        <span className='text-4xl font-semibold tracking-tight text-white'>
+          {Math.round((progress / goal) * 10000) / 100}%
+        </span>
+        <span className='text-sm text-gray-400'>{progress}</span>
+      </p>
+      <div className='relative mt-2 h-2 w-2/3 overflow-hidden rounded-lg bg-gray-900'>
         <div
-          className='h-full rounded-full bg-gradient-to-l from-white'
-          style={{ width: `${Math.min(fraction, 1) * 100}%` }}></div>
+          className={
+            'absolute left-0 top-0 h-full rounded-lg bg-gradient-to-r ' +
+            gradient
+          }
+          style={{ width: `${Math.min((progress / goal) * 100, 100)}%` }}></div>
       </div>
     </div>
   )
 }
+
+const neonGradients = [
+  'from-pink-500 to-purple-500',
+  'from-yellow-500 to-green-500',
+  'from-blue-500 to-indigo-500',
+  'from-orange-500 to-red-500',
+  'from-teal-500 to-lime-500',
+  'from-green-500 to-cyan-500',
+  'from-purple-500 to-pink-500',
+  'from-rose-500 to-fuchsia-500',
+  'from-amber-500 to-lime-500',
+  'from-sky-500 to-blue-500',
+  'from-fuchsia-500 to-violet-500',
+  'from-emerald-500 to-cyan-500',
+  'from-teal-500 to-indigo-500',
+  'from-pink-400 to-yellow-500',
+  'from-blue-400 to-green-500',
+  'from-violet-500 to-indigo-500',
+  'from-rose-400 to-amber-500',
+  'from-lime-500 to-teal-500',
+  'from-indigo-400 to-cyan-500',
+  'from-purple-400 to-rose-500',
+]
