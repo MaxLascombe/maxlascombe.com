@@ -54,7 +54,7 @@ export const goals: Record<
       ['Publish 20 posts on lifetothemax', 1, 20],
       ['Publish 10 other creations', 0, 10],
       ['Read 25 books', 4, 25],
-      ['Meditate 200 times', 41, 200],
+      ['Meditate 200 times', 43, 200],
       ['Watch 100 movies', 9 + 12 + 14, 100],
       ['Spend 0 minutes on Twitter or TikTok', 1, 1],
       ['Learn how to lift weights', 0, 1],
