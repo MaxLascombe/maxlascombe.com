@@ -4,7 +4,7 @@ export type Date = `${number}-${number}-${number}`
 
 export const goals: (Header | [Title, Date | 'thisyear' | null])[] = [
   'Travel',
-  ['Live for a year in a new country (not France or the US)', '2025-01-14'],
+  ['Live for a year in a new country (not France or the US)', '2024-12-31'],
   ['Travel to South America', null],
   ['Travel to Africa', null],
   ['Travel to Oceania', 'thisyear'],
@@ -43,7 +43,7 @@ export const goals: (Header | [Title, Date | 'thisyear' | null])[] = [
   ['Do a triathlon', '2023-05-13'],
   ['Complete an Iron Man', null],
   ['Complete an eating challenge', null],
-  ['Surf a 3-foot wave', 'thisyear'],
+  ['Surf a 3-foot wave', '2025-05-02'],
   ['Do ten pull-ups in a row', 'thisyear'],
   ['Compete in a boxing match', null],
   ['Run a 5k in under 25 minutes', 'thisyear'],
