@@ -55,7 +55,7 @@ export const goals: Record<
       ['Publish 10 other creations', 0, 10],
       ['Read 25 books', 4, 25],
       ['Meditate 200 times', 53, 200],
-      ['Watch 100 movies', 9 + 12 + 14 + 5, 100],
+      ['Watch 100 movies', 9 + 12 + 14 + 5 + 2, 100],
       ['Spend 0 minutes on Twitter or TikTok', 1, 1],
       ['Learn how to lift weights', 0, 1],
       ['Train for and complete a 5k, ...', 1, 1],
@@ -68,7 +68,7 @@ export const goals: Record<
       ],
       ['Travel to 3 new countries', ['Taiwan'].length, 3],
       ['Donate blood', 0, 1],
-      ['Complete my work milestones', 3, 17],
+      ['Complete my work milestones', 9, 17],
     ],
   },
 }
