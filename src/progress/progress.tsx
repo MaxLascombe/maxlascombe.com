@@ -3,6 +3,15 @@ import { useYearProgress } from '../hooks/useYearProgress'
 import { ClockSprite, PlayerSprite } from '../Player'
 import { goals } from './goals'
 
+const Tooltip = ({ children }: { children: React.ReactNode }) => (
+  <div className='absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-full'>
+    <p className='rounded-md bg-gray-800 px-2 py-1 text-center text-xs text-white shadow-lg'>
+      {children}
+    </p>
+    <div className='mx-auto size-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-800' />
+  </div>
+)
+
 const RaceComponent = ({
   progress,
   year,
@@ -14,7 +23,7 @@ const RaceComponent = ({
 }) => (
   <div className='fixed bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black to-transparent p-5'>
     <div className='absolute bottom-5 left-5 right-5 flex h-5 items-end border border-t-0 border-white'>
-      {goals[year].goals.map(([_, progress, goal], index, arr) => (
+      {goals[year].goals.map(([, progress, goal], index, arr) => (
         <div
           key={index}
           className={
@@ -31,11 +40,17 @@ const RaceComponent = ({
         className='absolute bottom-0 h-[60px] w-[60px] -translate-x-1/2'
         style={{ left: `${progress}%` }}>
         <PlayerSprite vX={200} walkingRight={true} />
+        <Tooltip>
+          I'm {Math.round(progress)}% done with my tasks for the year
+        </Tooltip>
       </div>
       <div
         className='absolute bottom-2 -translate-x-1/2'
         style={{ left: `${yearProgress * 100}%` }}>
         <ClockSprite />
+        <Tooltip>
+          The year is {Math.round(yearProgress * 100)}% complete
+        </Tooltip>
       </div>
     </div>
   </div>
