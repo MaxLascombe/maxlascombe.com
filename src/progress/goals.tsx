@@ -59,7 +59,7 @@ export const goals: Record<
       ['Spend 0 minutes on Twitter or TikTok', 1, 1],
       ['Learn how to lift weights', 0, 1],
       ['Train for and complete a 5k, ...', 1, 1],
-      ['... a 10k, ...', 5, 65 + 1],
+      ['... a 10k, ...', 5, 60 + 1],
       ['... and a half marathon', 0, 1],
       [
         'Check 6 items off my bucket list',
