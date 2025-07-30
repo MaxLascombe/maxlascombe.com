@@ -47,9 +47,9 @@ const Drinks = () => {
 
         <Menu items={drinksItems} />
 
-        <div className='mt-12 text-center'>
-          <div className='inline-block rounded-lg bg-white p-6 shadow-lg'>
-            <h3 className='mb-4 text-lg font-semibold text-gray-800'>
+        <div className='mt-12 max-w-full text-center'>
+          <div className='inline-block max-w-full rounded-lg bg-white p-6 shadow-lg'>
+            <h3 className='mb-4 max-w-full whitespace-pre-wrap text-lg font-semibold text-gray-800'>
               Scan to view this menu on your phone
             </h3>
             <QRCodeSVG
