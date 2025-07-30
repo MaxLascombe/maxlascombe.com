@@ -32,7 +32,7 @@ const Drinks = () => {
     },
     {
       type: 'item' as const,
-      name: 'Anything else we happen to bring on the boat',
+      name: 'Anything else we happen to bring on the boat rersdf rsedf',
     },
   ]
 
