@@ -53,8 +53,8 @@ export const goals: Record<
     goals: [
       ['Publish 20 posts on lifetothemax', 2, 20],
       ['Publish 10 other creations', ['charlottes-bday menu', 'sinaya nyc booth'].length, 10],
-      ['Read 25 books', 5, 25],
-      ['Meditate 200 times', 80, 200],
+      ['Read 25 books', 6, 25],
+      ['Meditate 200 times', 88, 200],
       ['Watch 100 movies', 85, 100],
       ['Spend 0 minutes on Twitter or TikTok', 1, 1],
       ['Learn how to lift weights', 0, 1],
@@ -68,7 +68,7 @@ export const goals: Record<
       ],
       ['Travel to 3 new countries', ['Taiwan'].length, 3],
       ['Donate blood', 0, 1],
-      ['Complete my work milestones', 9, 17],
+      ['Complete my work milestones', 17, 17],
     ],
   },
 }
