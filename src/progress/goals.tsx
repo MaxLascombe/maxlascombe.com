@@ -54,7 +54,12 @@ export const goals: Record<
       ['Publish 20 posts on lifetothemax', 2, 20],
       [
         'Publish 10 other creations',
-        ['charlottes-bday menu', 'sinaya nyc booth', 'sinaya launch'].length,
+        [
+          'charlottes-bday menu',
+          'sinaya nyc booth',
+          'sinaya fishing video',
+          'sinaya launch',
+        ].length,
         10,
       ],
       ['Read 25 books', 6, 25],
