@@ -67,7 +67,7 @@ export const goals: Record<
         10,
       ],
       ['Read 25 books', 7, 25],
-      ['Meditate 200 times', 110, 200],
+      ['Meditate 200 times', 112, 200],
       ['Watch 100 movies', 97, 100],
       ['Spend 0 minutes on Twitter or TikTok', 1, 1],
       ['Learn how to lift weights', 1, 1],
