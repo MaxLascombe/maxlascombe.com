@@ -12,7 +12,7 @@ export const goals: (Header | [Title, Date | 'thisyear' | null])[] = [
   ['See the Taj Mahal', null],
   ['See Machu Picchu', null],
   ['See the Pyramids of Giza', null],
-  ['Road trip across the US with friends', null],
+  ['Road trip across the US with friends', '2025-11-09'],
   ['Visit every European country', null],
   ['Go to Vegas for a weekend', '2025-10-12'],
   ['Go to the Carnival of Brazil', null],
