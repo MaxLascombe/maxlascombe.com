@@ -51,10 +51,10 @@ export const goals: Record<
   2025: {
     link: 'https://lifetothemax.substack.com/p/fourteen-goals-for-2025',
     goals: [
-      ['Publish 20 posts on lifetothemax', 2, 20],
+      ['Publish 20 posts on lifetothemax', 3, 20],
       ['Publish 10 other creations', 10, 10],
-      ['Read 25 books', 11, 25],
-      ['Meditate 200 times', 134, 200],
+      ['Read 25 books', 12, 25],
+      ['Meditate 200 times', 136, 200],
       ['Watch 100 movies', 100, 100],
       ['Spend 0 minutes on Twitter or TikTok', 1, 1],
       ['Learn how to lift weights', 1, 1],
