@@ -188,13 +188,14 @@ export const Progress = ({
 
       <div className='mb-48 grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4'>
         {goals[year].goals.map(([title, progress, goal], index) => (
-          <ProgressBar
-            key={title}
-            title={title}
-            progress={progress}
-            goal={goal}
-            gradient={neonGradients[index % neonGradients.length]}
-          />
+          <div key={title} className='w-full min-w-0'>
+            <ProgressBar
+              title={title}
+              progress={progress}
+              goal={goal}
+              gradient={neonGradients[index % neonGradients.length]}
+            />
+          </div>
         ))}
       </div>
 
@@ -219,8 +220,10 @@ const ProgressBar = ({
   gradient: string
 }) => {
   return (
-    <div key={title} className='flex flex-col gap-2 py-6'>
-      <p className='text-sm/6 font-medium text-gray-400'>{title}</p>
+    <div className='flex w-full min-w-0 flex-col gap-2 py-6'>
+      <p className='w-full whitespace-normal text-sm/6 font-medium text-gray-400'>
+        {title}
+      </p>
       <p className='flex items-baseline gap-x-2'>
         <span className='text-4xl font-semibold tracking-tight text-white'>
           {Math.round((progress / goal) * 10000) / 100}%
