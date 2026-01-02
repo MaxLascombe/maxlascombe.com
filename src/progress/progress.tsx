@@ -1,16 +1,111 @@
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'wouter'
 import { useYearProgress } from '../hooks/useYearProgress'
 import { ClockSprite, PlayerSprite } from '../Player'
 import { goals } from './goals'
 
-const Tooltip = ({ children }: { children: React.ReactNode }) => (
-  <div className='absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-full'>
-    <p className='rounded-md bg-gray-800 px-2 py-1 text-center text-xs text-white shadow-lg'>
-      {children}
-    </p>
-    <div className='mx-auto size-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-800' />
-  </div>
-)
+const Tooltip = ({ children }: { children: React.ReactNode }) => {
+  const tooltipRef = useRef<HTMLDivElement>(null)
+  const [style, setStyle] = useState<React.CSSProperties>({
+    left: '50%',
+    transform: 'translateX(-50%) translateY(-100%)',
+  })
+  const [arrowOffset, setArrowOffset] = useState(0)
+
+  const updatePosition = useCallback(() => {
+    if (!tooltipRef.current) return
+
+    const tooltip = tooltipRef.current
+    const tooltipWidth = tooltip.offsetWidth
+    const tooltipHeight = tooltip.offsetHeight
+
+    // If tooltip hasn't been measured yet, try again
+    if (tooltipWidth === 0 || tooltipHeight === 0) {
+      requestAnimationFrame(updatePosition)
+      return
+    }
+
+    const viewportWidth = window.innerWidth
+    const minLeft = 10
+    const maxLeft = viewportWidth - tooltipWidth - 10
+
+    // Get the parent element's position in the viewport
+    const parent = tooltip.parentElement
+    if (!parent) return
+
+    const parentRect = parent.getBoundingClientRect()
+    const parentStyles = window.getComputedStyle(parent)
+    const parentPaddingLeft = parseFloat(parentStyles.paddingLeft) || 0
+
+    const originalCenterX = parentRect.left + parentRect.width / 2
+    const desiredLeft = originalCenterX - tooltipWidth / 2
+
+    // Clamp the left position relative to viewport
+    const clampedLeft = Math.max(minLeft, Math.min(desiredLeft, maxLeft))
+
+    // Calculate arrow offset to point at original position
+    // Subtract padding to account for parent's padding
+    const arrowOffset =
+      originalCenterX - (clampedLeft + tooltipWidth / 2) - parentPaddingLeft
+
+    // Calculate position relative to parent
+    // We need to convert viewport coordinates to parent-relative coordinates
+    const parentLeft = parentRect.left
+
+    // Position relative to parent's top-left corner
+    const relativeLeft = clampedLeft - parentLeft
+
+    setStyle({
+      position: 'absolute',
+      left: `${relativeLeft}px`,
+      top: '0',
+      transform: 'translateY(-100%)',
+    })
+    setArrowOffset(arrowOffset)
+  }, [])
+
+  useEffect(() => {
+    const timeoutId = setTimeout(updatePosition, 0)
+
+    const handleResize = () => {
+      updatePosition()
+    }
+
+    let animationFrameId: number
+    const scheduleUpdate = () => {
+      cancelAnimationFrame(animationFrameId)
+      animationFrameId = requestAnimationFrame(updatePosition)
+    }
+
+    window.addEventListener('resize', handleResize)
+    const intervalId = setInterval(scheduleUpdate, 100)
+
+    return () => {
+      clearTimeout(timeoutId)
+      window.removeEventListener('resize', handleResize)
+      clearInterval(intervalId)
+      cancelAnimationFrame(animationFrameId)
+    }
+  }, [children, updatePosition])
+
+  return (
+    <div
+      ref={tooltipRef}
+      className='absolute top-0 z-10 -translate-y-full'
+      style={style}>
+      <p className='whitespace-nowrap rounded-md bg-gray-800 px-2 py-1 text-center text-xs text-white shadow-lg'>
+        {children}
+      </p>
+      <div
+        className='size-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-800'
+        style={{
+          marginLeft: `calc(50% + ${arrowOffset - 3}px)`,
+          width: 0,
+        }}
+      />
+    </div>
+  )
+}
 
 const RaceComponent = ({
   progress,
@@ -35,9 +130,9 @@ const RaceComponent = ({
           }}></div>
       ))}
     </div>
-    <div className='absolute bottom-5 left-5 right-5'>
+    <div className='absolute bottom-5 left-5 right-5 overflow-visible'>
       <div
-        className='absolute bottom-0 h-[60px] w-[60px] -translate-x-1/2'
+        className='absolute bottom-0 h-[60px] w-[60px] -translate-x-1/2 overflow-visible'
         style={{ left: `${progress}%` }}>
         <PlayerSprite vX={200} walkingRight={true} />
         <Tooltip>
@@ -45,7 +140,7 @@ const RaceComponent = ({
         </Tooltip>
       </div>
       <div
-        className='absolute bottom-2 -translate-x-1/2'
+        className='absolute bottom-2 -translate-x-1/2 overflow-visible'
         style={{ left: `${yearProgress * 100}%` }}>
         <ClockSprite />
         <Tooltip>
