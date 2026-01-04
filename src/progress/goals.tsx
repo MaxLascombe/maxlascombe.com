@@ -74,7 +74,7 @@ export const goals: Record<
   2026: {
     link: '',
     goals: [
-      ['Build and maintain a 30-day running streak', 15, 30],
+      ['Build and maintain a 30-day running streak', 18, 30],
       ['Read 25 books', 0, 25],
       ['Quit all algorithmic feeds', 0, 1],
       ['End the year with more money than I started', 0, 1],
