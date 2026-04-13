@@ -75,7 +75,7 @@ export const goals: Record<
     link: 'https://open.substack.com/pub/lifetothemax/p/2026-goals',
     goals: [
       ['Build and maintain a 30-day running streak', 0, 30],
-      ['Read 25 books', 1, 25],
+      ['Read 25 books', 2, 25],
       ['Quit all algorithmic feeds', 1, 1],
       ['End the year with more money than I started', 0, 1],
       ['Complete the 9+1 program to run the 2027 NYC Marathon', 1, 10],
