@@ -74,12 +74,12 @@ export const goals: Record<
   2026: {
     link: 'https://open.substack.com/pub/lifetothemax/p/2026-goals',
     goals: [
-      ['Build and maintain a 30-day running streak', 2, 30],
-      ['Read 25 books', 6, 25],
+      ['Build and maintain a 30-day running streak', 11, 30],
+      ['Read 25 books', 8, 25],
       ['Quit all algorithmic feeds', 1, 1],
       ['End the year with more money than I started', 0, 1],
       ['Complete the 9+1 program to run the 2027 NYC Marathon', 2, 10],
-      ['Build and maintain an 8-week gym streak', 0, 8],
+      ['Build and maintain an 8-week gym streak', 1, 8],
       [
         'Check 3 items off my bucket list',
         bucketListGoalsPerYear.get('2026') ?? 0,
